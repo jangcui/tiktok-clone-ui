@@ -1,0 +1,79 @@
+.wrapper {
+  --search-border-radius: 92px;
+  --search-height: 46px;
+  --search-top-spacer: 9px;
+  --search-bottom-width: 52px;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 10;
+  height: var(--default-layout-header-height, 60px);
+  box-shadow: 0px 1px 1px rgb(0 0 0 / 12%);
+  background-color: var(--white);
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 0 var(--default-layout-horizontal-spacer);
+  width: var(--default-layout-width, 1150px);
+}
+
+.logo-link {
+  display: flex;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.more-btn {
+  padding: 4px 8px;
+  font-size: 2rem;
+  margin-left: 24px;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.btn-actions {
+  color: #161823;
+  background-color: transparent;
+  padding-right: 16px;
+  cursor: pointer;
+  position: relative;
+  display: flex;
+
+  .notify {
+    position: absolute;
+    top: -8px;
+    right: 6px;
+    z-index: 1234;
+    background-color: var(--primary);
+    border-radius: 50%;
+    padding: 4px 6px;
+    font-size: 12px;
+    text-align: center;
+    color: #fff;
+  }
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  object-fit: cover;
+  border-radius: 50%;
+  margin-left: 12x;
+  cursor: alias;
+}
+.plus-upload {
+  margin-right: 10px;
+  font-size: 1.6rem;
+  color: var(--text-color);
+}

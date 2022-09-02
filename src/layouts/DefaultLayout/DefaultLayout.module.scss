@@ -1,0 +1,17 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.container {
+  width: var(--default-layout-width, 1150px);
+  display: flex;
+  justify-content: space-between;
+
+  max-width: 100%;
+  padding-left: var(--default-layout-horizontal-spacer);
+  margin-top: var(--default-layout-header-height);
+  min-height: 1000px;
+}
+.content {
+}
