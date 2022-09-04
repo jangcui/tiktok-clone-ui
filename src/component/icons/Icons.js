@@ -1,4 +1,4 @@
-export const UploadIcon = ({ width = '2.6rem', height = '2.6rem', className }) => (
+export const UploadIcon = ({ width = '2.6rem', height = '2.6rem', className, onClick = () => {} }) => (
   <svg
     className={className}
     width={width}
@@ -15,7 +15,7 @@ export const UploadIcon = ({ width = '2.6rem', height = '2.6rem', className }) =
   </svg>
 );
 
-export const MessageIcon = ({ width = '3.2rem', height = '3.2rem', className }) => (
+export const MessageIcon = ({ width = '3.2rem', height = '3.2rem', className, onClick = () => {} }) => (
   <svg
     className={className}
     width={width}
@@ -198,8 +198,9 @@ export const ShareIcon = ({ fontSize = '20px', width = '24px', className }) => (
     ></path>
   </svg>
 );
-export const VolumeIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const VolumeIcon = ({ fontSize = '20px', width = '24px', className, onClick = () => {} }) => (
   <svg
+    onClick={onClick}
     className={className}
     width={width}
     fontSize={fontSize}
@@ -214,8 +215,10 @@ export const VolumeIcon = ({ fontSize = '20px', width = '24px', className }) => 
     ></path>
   </svg>
 );
-export const PlayIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const PlayIcon = ({ fontSize = '20px', width = '24px', className, onClick, onToggle = () => {} }) => (
   <svg
+    onToggle={onToggle}
+    onClick={onClick}
     className={className}
     width={width}
     fontSize={fontSize}
@@ -234,8 +237,11 @@ export const PlayIcon = ({ fontSize = '20px', width = '24px', className }) => (
     ></path>
   </svg>
 );
-export const PauseIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const PauseIcon = ({ fontSize = '20px', width = '24px', className, onClick, ref, onToggle = () => {} }) => (
   <svg
+    ref={ref}
+    onToggle={onToggle}
+    onClick={onClick}
     className={className}
     width={width}
     fontSize={fontSize}
@@ -274,8 +280,9 @@ export const FlagIcon = ({ fontSize = '20px', width = '24px', className }) => (
     ></path>
   </svg>
 );
-export const MuteIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const MuteIcon = ({ fontSize = '20px', width = '24px', className, onClick = () => {} }) => (
   <svg
+    onClick={onClick}
     className={className}
     width={width}
     fontSize={fontSize}

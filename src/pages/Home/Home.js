@@ -62,13 +62,15 @@ function Home() {
                 style1
                 data={data.user}
                 children={
-                  <a href=".">
-                    <h3 id="hover1">
-                      {data.user.nickname}
-                      {data.user.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
-                    </h3>
-                    <h4>{data.user.first_name + ' ' + data.user.last_name}</h4>
-                  </a>
+                  <>
+                    <a href=".">
+                      <h3 id="hover1">
+                        {data.user.nickname}
+                        {data.user.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                      </h3>
+                      <h4>{data.user.first_name + ' ' + data.user.last_name}</h4>
+                    </a>
+                  </>
                 }
               />
             </div>
