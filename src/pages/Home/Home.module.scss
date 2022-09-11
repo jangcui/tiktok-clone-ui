@@ -72,14 +72,6 @@
 }
 
 .nickname {
-  display: flex;
-
-  a:hover {
-    h3 {
-      text-decoration: underline;
-    }
-  }
-
   h3 {
     font-weight: 700;
     font-size: 18px;
@@ -87,6 +79,10 @@
     display: inline-block;
     margin-right: 6px;
   }
+  h3:hover {
+    text-decoration: underline !important;
+  }
+
   h4 {
     font-weight: 400;
     font-size: 14px;

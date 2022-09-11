@@ -11,7 +11,17 @@ const cx = className.bind(styles);
 
 const defaultfn = () => {};
 
-function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn }) {
+function Menu({
+  children,
+  items = [],
+  hideOnClick = false,
+  onChange = defaultfn,
+  placement,
+  offset,
+  delay,
+  interactive = true,
+  visible = false,
+}) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1]; //lấy phần tử cuối mảng
 
@@ -53,11 +63,12 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultfn 
 
   return (
     <Tippy
-      delay={[0, 700]}
-      interactive
+      interactive={interactive}
+      visible={visible}
       hideOnClick={hideOnClick}
-      offset={[12, 8]}
-      placement="bottom-end"
+      delay={delay}
+      offset={offset}
+      placement={placement}
       render={renderResult}
       onHide={handleReset}
     >
