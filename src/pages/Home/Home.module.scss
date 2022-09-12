@@ -1,7 +1,6 @@
 .wrapper {
   display: flex;
   flex-direction: column;
-
   background-color: rgba(0, 255, 255, 0.128);
   width: 692px;
   max-width: 692px;
@@ -29,14 +28,23 @@
   }
 }
 
-.avatar {
+.wrap-avatar {
   display: block;
-  overflow: inherit;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  cursor: pointer;
+
+  &:hover ~ .content h3 {
+    text-decoration: underline;
+  }
+}
+
+.avatar {
   width: 56px;
   height: 56px;
   object-fit: cover;
   border-radius: 50%;
-  cursor: pointer;
 }
 
 .check {
@@ -79,8 +87,8 @@
     display: inline-block;
     margin-right: 6px;
   }
-  h3:hover {
-    text-decoration: underline !important;
+  a:hover h3 {
+    text-decoration: underline;
   }
 
   h4 {
@@ -95,10 +103,8 @@
   display: block;
   font-weight: 500;
 
-  a:hover {
-    strong {
-      text-decoration: underline;
-    }
+  a:hover strong {
+    text-decoration: underline;
   }
 }
 

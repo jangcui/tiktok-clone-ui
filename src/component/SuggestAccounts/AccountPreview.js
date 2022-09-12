@@ -1,27 +1,26 @@
 import PropTypes from 'prop-types';
+import Tippy from '@tippyjs/react/headless';
 
 import Image from '~/component/Image';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import SubInfoAvatar from '~/component/SubInfoUser';
-import Tippy from '@tippyjs/react/headless';
-import 'tippy.js/dist/tippy.css';
 import styles from './SuggestAccounts.module.scss';
 const cx = classNames.bind(styles);
 
-function AccountItem({ data }) {
-  return (
-    <Tippy
-      interactive
-      delay={[1000, 300]}
-      render={(attrs) => (
-        <div tabIndex="-1" {...attrs}>
+function AccountPreview({ data }) {
+  const renderPreview = (props) => {
+    return (
+      <div tabIndex="-1" {...props}>
+        <div>
           <SubInfoAvatar data={data} />
         </div>
-      )}
-      placement="bottom"
-    >
+      </div>
+    );
+  };
+  return (
+    <Tippy interactive delay={[800, 0]} offset={[-20, 0]} placement="bottom" render={renderPreview}>
       <div className={cx('account-item')}>
         <Image className={cx('avatar')} src={data.avatar} alt="kk" />
         <div className={cx('item-info')}>
@@ -35,8 +34,8 @@ function AccountItem({ data }) {
     </Tippy>
   );
 }
-AccountItem.prototype = {
+AccountPreview.prototype = {
   data: PropTypes.object.isRequired,
 };
 
-export default AccountItem;
+export default AccountPreview;

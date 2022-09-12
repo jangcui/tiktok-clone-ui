@@ -2,13 +2,14 @@ import { VolumeIcon, PlayIcon, PauseIcon, FlagIcon, MuteIcon } from '~/component
 import styles from './Video.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const cx = classNames.bind(styles);
 
 function Video({ dataVideo, typeVideo }) {
-  const [isPlaying, setIsPlaying] = useState(false);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [isMute, setIsMute] = useState(true);
-  const [volume, setVolume] = useState(0.8 ? localStorage.getItem('thisVolume') : '');
+  const [volume, setVolume] = useState(0.8 ? localStorage.getItem('thisVolume') : 0.8);
   const [currentTimeVideo, setCurrentVideo] = useState(0);
   const [durationVideo, setDurationVideo] = useState(0);
 
@@ -16,6 +17,9 @@ function Video({ dataVideo, typeVideo }) {
   const volumeRef = useRef(volume);
   const seekVideoRef = useRef();
 
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
   const soundSave = () => {
     let save = volumeRef.current.value;
     localStorage.setItem('thisVolume', save);
@@ -23,10 +27,9 @@ function Video({ dataVideo, typeVideo }) {
   };
 
   useEffect(() => {
-    isPlaying ? videoRef.current.play() : videoRef.current.pause();
-
+    inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
     setDurationVideo(videoRef.current.duration);
-  }, [isPlaying, currentTimeVideo]);
+  }, [isPlaying, currentTimeVideo, inView]);
 
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
@@ -44,12 +47,14 @@ function Video({ dataVideo, typeVideo }) {
 
   const handleVolume = () => {
     volume !== '0' ? setIsMute(true) : setIsMute(false);
+    isMute ? setVolume(0) : setVolume(localStorage.getItem('thisVolume'));
+
     setVolume(soundSave());
   };
-  const handleTimePlay = (e) => {
+  const handleTimePlay = () => {
     setCurrentVideo(videoRef.current.currentTime);
     const percent = (currentTimeVideo / durationVideo) * 100;
-    if (durationVideo > 7) {
+    if (durationVideo > 10) {
       seekVideoRef.current.style.width = percent + '%';
     }
   };
@@ -58,14 +63,25 @@ function Video({ dataVideo, typeVideo }) {
     let parent = seekVideoRef.current.parentNode;
     let seekWidth = e.nativeEvent.offsetX;
     let progressWidth = parent.offsetWidth;
+
     const cc = (seekWidth * durationVideo) / progressWidth;
     videoRef.current.currentTime = cc;
     setCurrentVideo(cc);
-    console.log();
   };
+  function FormatTime({ time }) {
+    let minutes = Math.floor(time / 60);
+    let seconds = Math.floor(time - minutes * 60);
+    let minuteValue, secondValue;
+
+    minuteValue = minutes < 10 ? '0' + minutes : minutes;
+    secondValue = seconds < 10 ? '0' + seconds : seconds;
+
+    let mediaTime = minuteValue + ':' + secondValue;
+    return mediaTime;
+  }
 
   return (
-    <div className={cx('wrapper')}>
+    <div className={cx('wrapper')} ref={ref} inView={inView}>
       <video
         className={cx('video')}
         tabIndex="2"
@@ -74,11 +90,11 @@ function Video({ dataVideo, typeVideo }) {
         ref={videoRef}
         onTimeUpdate={handleTimePlay}
       />
+
       <p className={cx('flag')}>
         <FlagIcon />
         Báo cáo
       </p>
-
       {isPlaying ? (
         <PauseIcon className={cx('pause')} onClick={handlePlay} />
       ) : (
@@ -91,7 +107,7 @@ function Video({ dataVideo, typeVideo }) {
         <VolumeIcon className={cx('sound-on')} onClick={handleMute} />
       )}
 
-      <label for="slider" className={cx('wrap-volume')}>
+      <label htmlFor="slider" className={cx('wrap-volume')}>
         <input
           id="slider"
           className={cx('slider-volume')}
@@ -111,8 +127,10 @@ function Video({ dataVideo, typeVideo }) {
               <span className={cx('process')}></span>
             </span>
           </div>
+
           <div className={cx('seek-timer')}>
-            {Math.floor(currentTimeVideo)} /{Math.floor(durationVideo)}
+            <FormatTime time={currentTimeVideo} /> /
+            <FormatTime time={durationVideo} />
           </div>
         </div>
       )}

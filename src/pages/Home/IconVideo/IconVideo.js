@@ -1,9 +1,53 @@
 import { LikeIcon, CommentIcon, ShareIcon } from '~/component/Icons';
+import Menu from '~/component/Popper/Menu';
+import { DipIcon, TelegramIcon, FacebookIcon, WhatsAppIcon, LinksIcon, DownIcon } from '~/component/Icons';
+
 import classNames from 'classnames/bind';
 import styles from './IconVideo.module.scss';
 
 const cx = classNames.bind(styles);
+const MENU_ITEMS = [
+  {
+    icon: <DipIcon />,
+    title: 'Nhúng',
+  },
+  {
+    icon: <TelegramIcon />,
+    title: 'Gửi đến bạn bè',
+    to: '/feedback',
+  },
+  {
+    icon: <FacebookIcon />,
+    title: 'Chia sẻ với facebook',
+  },
 
+  {
+    icon: <WhatsAppIcon />,
+    title: 'Chia sẻ với Whats APp',
+  },
+  {
+    icon: <LinksIcon />,
+    title: 'Chia sẻ với liên kết',
+  },
+  {
+    icon: <DownIcon />,
+    children: {
+      title: 'Language',
+      data: [
+        {
+          type: 'language',
+          code: 'vi',
+          title: 'Tiếng Việt',
+        },
+        {
+          type: 'language',
+          code: 'en',
+          title: 'English',
+        },
+      ],
+    },
+  },
+];
 function IconVideo({ likeCount, commentsCount, shareCount }) {
   return (
     <div className={cx('wrapper')}>
@@ -19,11 +63,13 @@ function IconVideo({ likeCount, commentsCount, shareCount }) {
         </span>
       </button>
       <strong>{commentsCount}</strong>
-      <button className={cx('btn-icons')}>
-        <span className={cx('icons')}>
-          <ShareIcon />
-        </span>
-      </button>
+      <Menu items={MENU_ITEMS} placement="top-start" visible={true}>
+        <button className={cx('btn-icons')}>
+          <span className={cx('icons')}>
+            <ShareIcon />
+          </span>
+        </button>
+      </Menu>
       <strong>{shareCount}</strong>
     </div>
   );

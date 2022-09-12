@@ -14,7 +14,6 @@ import {
   faPlus,
 } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react';
-import 'tippy.js/dist/tippy.css';
 
 import Button from '~/component/Button';
 import { MessageIcon, UploadIcon } from '~/component/Icons';
@@ -126,7 +125,14 @@ function Header() {
               <Button primary>Log ddin</Button>
             </>
           )}
-          <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
+          <Menu
+            interactive
+            items={currentUser ? userMenu : MENU_ITEMS}
+            onChange={handleMenuChange}
+            delay={[0, 700]}
+            offset={[12, 8]}
+            placement="bottom-end"
+          >
             {currentUser ? (
               <Image
                 className={cx('user-avatar')}

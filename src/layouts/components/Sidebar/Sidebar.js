@@ -23,7 +23,7 @@ function Sidebar() {
 
   useEffect(() => {
     userService
-      .getSuggested({ page: 1, perPage: PER_PAGE })
+      .getSuggested({ page: 2, perPage: PER_PAGE })
       .then((data) => {
         setSuggestedUser((preUser) => [...preUser, ...data]);
       })

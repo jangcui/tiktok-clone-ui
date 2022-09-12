@@ -7,7 +7,6 @@ import * as searchService from '~/Services/searchService';
 
 import { faCircleXmark, faMagnifyingGlass, faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import 'tippy.js/dist/tippy.css';
 import { useDebounce } from '~/hook';
 
 import styles from './Search.module.scss';
