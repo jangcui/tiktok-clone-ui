@@ -16,6 +16,7 @@ function Button({
   disable = false,
   rounded = false,
   normal = false,
+  btnShare = false,
   children,
   onClick,
   leftIcon,

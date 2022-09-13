@@ -5,6 +5,7 @@ import MenuItems from './MenuItems';
 import className from 'classnames/bind';
 import Tippy from '@tippyjs/react/headless';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
+
 import styles from './Menu.module.scss';
 
 const cx = className.bind(styles);
@@ -20,7 +21,11 @@ function Menu({
   offset,
   delay,
   interactive = true,
-  visible = false,
+  visible = true,
+  menuShare = false,
+  menuUser = false,
+  className,
+  ...passProps
 }) {
   const [history, setHistory] = useState([{ data: items }]);
   const current = history[history.length - 1]; //lấy phần tử cuối mảng
@@ -47,10 +52,18 @@ function Menu({
   const handleBack = () => {
     setHistory((prev) => prev.slice(0, prev.length - 1));
   };
+  const props = {
+    ...passProps,
+  };
+  const classes = cx('Wrapper', {
+    menuShare,
+    [className]: className,
+    menuUser,
+  });
 
   const renderResult = (attrs) => (
     <div className={cx('content')} tabIndex="-1" {...attrs}>
-      <PopperWrapper className={cx('menu-popper')}>
+      <PopperWrapper className={classes} {...props}>
         {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
         <div className={cx('menu-body')}> {renderItems()}</div>
       </PopperWrapper>
@@ -63,8 +76,8 @@ function Menu({
 
   return (
     <Tippy
-      interactive={interactive}
       visible={visible}
+      interactive={interactive}
       hideOnClick={hideOnClick}
       delay={delay}
       offset={offset}

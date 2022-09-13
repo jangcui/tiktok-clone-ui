@@ -126,6 +126,7 @@ function Header() {
             </>
           )}
           <Menu
+            menuUser
             interactive
             items={currentUser ? userMenu : MENU_ITEMS}
             onChange={handleMenuChange}

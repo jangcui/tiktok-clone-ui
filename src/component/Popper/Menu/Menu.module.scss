@@ -15,15 +15,17 @@
       border-top: 1px solid rgba(22, 24, 35, 0.12);
     }
   }
-  .menu-items {
-    &:hover {
-      background-color: rgba(22, 24, 35, 0.03);
-    }
+  .menu-items:hover {
+    background-color: rgba(22, 24, 35, 0.03);
   }
 }
 
-.menu-popper {
+.menuUser {
   padding-bottom: 8px;
+}
+
+.menuShare {
+  width: 280px !important;
 }
 
 .menu-body {
