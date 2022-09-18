@@ -9,27 +9,42 @@ const cx = classNames.bind(styles);
 function Video({ dataVideo, typeVideo }) {
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMute, setIsMute] = useState(true);
-  const [volume, setVolume] = useState(0.8 ? localStorage.getItem('thisVolume') : 0.8);
+  const [volume, setVolume] = useState(0.4 ? localStorage.getItem('thisVolume') : 0.5);
   const [currentTimeVideo, setCurrentVideo] = useState(0);
   const [durationVideo, setDurationVideo] = useState(0);
-
   const videoRef = useRef();
   const volumeRef = useRef(volume);
   const seekVideoRef = useRef();
 
   const { ref, inView } = useInView({
+    /* Optional options */
+    delay: 300,
     threshold: 1,
   });
+
   const soundSave = () => {
     let save = volumeRef.current.value;
     localStorage.setItem('thisVolume', save);
     return save;
   };
-
   useEffect(() => {
-    inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
+    if (inView) {
+      videoRef.current.play();
+
+      if (!isPlaying) {
+        videoRef.current.pause();
+      }
+    } else {
+      videoRef.current.pause();
+      videoRef.current.currentTime = 0;
+      setIsPlaying(true);
+    }
+
+    // inView === true && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
+
+    // inView === false && videoRef.current.load();
     setDurationVideo(videoRef.current.duration);
-  }, [isPlaying, currentTimeVideo, inView]);
+  }, [inView, isPlaying]);
 
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
@@ -42,7 +57,7 @@ function Video({ dataVideo, typeVideo }) {
 
   const handleMute = () => {
     setIsMute(!isMute);
-    isMute ? setVolume(0) : setVolume(localStorage.getItem('thisVolume'));
+    isMute ? setVolume(0) : setVolume(() => localStorage.getItem('thisVolume'));
   };
 
   const handleVolume = () => {
@@ -68,6 +83,7 @@ function Video({ dataVideo, typeVideo }) {
     videoRef.current.currentTime = cc;
     setCurrentVideo(cc);
   };
+
   function FormatTime({ time }) {
     let minutes = Math.floor(time / 60);
     let seconds = Math.floor(time - minutes * 60);
@@ -81,7 +97,7 @@ function Video({ dataVideo, typeVideo }) {
   }
 
   return (
-    <div className={cx('wrapper')} ref={ref} inView={inView}>
+    <div className={cx('wrapper')} ref={ref}>
       <video
         className={cx('video')}
         tabIndex="2"
@@ -89,6 +105,8 @@ function Video({ dataVideo, typeVideo }) {
         type={typeVideo}
         ref={videoRef}
         onTimeUpdate={handleTimePlay}
+        muted={() => {}}
+        loop
       />
 
       <p className={cx('flag')}>
@@ -107,7 +125,7 @@ function Video({ dataVideo, typeVideo }) {
         <VolumeIcon className={cx('sound-on')} onClick={handleMute} />
       )}
 
-      <label htmlFor="slider" className={cx('wrap-volume')}>
+      <div className={cx('wrap-volume')}>
         <input
           id="slider"
           className={cx('slider-volume')}
@@ -119,7 +137,7 @@ function Video({ dataVideo, typeVideo }) {
           value={volume}
           onChange={handleVolume}
         />
-      </label>
+      </div>
       {durationVideo > 7 && (
         <div className={cx('wrap-slider')}>
           <div className={cx('seek-slider')} onClick={handleSeek}>

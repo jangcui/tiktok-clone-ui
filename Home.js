@@ -26,7 +26,6 @@ function Home() {
       })
       .catch((error) => console.log(error));
   }, []);
-  console.log(dataHome);
   return (
     <div className={cx('wrapper')}>
       {dataHome.map((data) => (
