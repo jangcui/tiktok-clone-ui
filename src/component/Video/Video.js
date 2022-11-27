@@ -2,11 +2,15 @@ import { VolumeIcon, PlayIcon, PauseIcon, FlagIcon, MuteIcon } from '~/component
 import styles from './Video.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState, useRef } from 'react';
+<<<<<<< HEAD
 import { useInView } from 'react-intersection-observer';
+=======
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
 
 const cx = classNames.bind(styles);
 
 function Video({ dataVideo, typeVideo }) {
+<<<<<<< HEAD
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMute, setIsMute] = useState(true);
   const [volume, setVolume] = useState(0.8 ? localStorage.getItem('thisVolume') : 0.8);
@@ -20,6 +24,15 @@ function Video({ dataVideo, typeVideo }) {
   const { ref, inView } = useInView({
     threshold: 1,
   });
+=======
+  const [isPlaying, setIsPlaying] = useState(false);
+  const [isMute, setIsMute] = useState(true);
+  const [volume, setVolume] = useState(0.8 ? localStorage.getItem('thisVolume') : '');
+
+  const videoRef = useRef();
+  const volumeRef = useRef(volume);
+
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
   const soundSave = () => {
     let save = volumeRef.current.value;
     localStorage.setItem('thisVolume', save);
@@ -27,9 +40,14 @@ function Video({ dataVideo, typeVideo }) {
   };
 
   useEffect(() => {
+<<<<<<< HEAD
     inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
     setDurationVideo(videoRef.current.duration);
   }, [isPlaying, currentTimeVideo, inView]);
+=======
+    isPlaying ? videoRef.current.play() : videoRef.current.pause();
+  }, [isPlaying]);
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
 
   const handlePlay = () => {
     setIsPlaying(!isPlaying);
@@ -47,6 +65,7 @@ function Video({ dataVideo, typeVideo }) {
 
   const handleVolume = () => {
     volume !== '0' ? setIsMute(true) : setIsMute(false);
+<<<<<<< HEAD
     isMute ? setVolume(0) : setVolume(localStorage.getItem('thisVolume'));
 
     setVolume(soundSave());
@@ -91,10 +110,25 @@ function Video({ dataVideo, typeVideo }) {
         onTimeUpdate={handleTimePlay}
       />
 
+=======
+    setVolume(soundSave());
+  };
+  const handleSeek = () => {};
+
+  console.log(videoRef.current.currentTime);
+
+  return (
+    <div className={cx('wrapper')}>
+      <video className={cx('video')} tabIndex="2" src={dataVideo} type={typeVideo} ref={videoRef} />
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
       <p className={cx('flag')}>
         <FlagIcon />
         Báo cáo
       </p>
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
       {isPlaying ? (
         <PauseIcon className={cx('pause')} onClick={handlePlay} />
       ) : (
@@ -107,7 +141,11 @@ function Video({ dataVideo, typeVideo }) {
         <VolumeIcon className={cx('sound-on')} onClick={handleMute} />
       )}
 
+<<<<<<< HEAD
       <label htmlFor="slider" className={cx('wrap-volume')}>
+=======
+      <label for="slider" className={cx('wrap-volume')}>
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
         <input
           id="slider"
           className={cx('slider-volume')}
@@ -120,6 +158,7 @@ function Video({ dataVideo, typeVideo }) {
           onChange={handleVolume}
         />
       </label>
+<<<<<<< HEAD
       {durationVideo > 7 && (
         <div className={cx('wrap-slider')}>
           <div className={cx('seek-slider')} onClick={handleSeek}>
@@ -134,6 +173,16 @@ function Video({ dataVideo, typeVideo }) {
           </div>
         </div>
       )}
+=======
+      <div className={cx('wrap-slider')}>
+        <div className={cx('seek-slider')} onChange={handleSeek}>
+          <span className={cx('progress')}>
+            <span className={cx('process')}></span>
+          </span>
+        </div>
+        <div className={cx('seek-timer')}>12:00</div>
+      </div>
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
     </div>
   );
 }

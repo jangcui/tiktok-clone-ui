@@ -118,8 +118,12 @@
   }
 
   &:hover .seek-slider,
+<<<<<<< HEAD
   &:hover .seek-slider,
   &:hover .progress {
+=======
+  &:hover .seek-slider {
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
     height: 6px;
   }
 }
@@ -152,6 +156,10 @@
   width: 14px;
   height: 14px;
   transition: linear 4s ease 0s;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
   background-color: rgb(206, 16, 177);
   opacity: 0;
 }
@@ -160,10 +168,18 @@
   flex: 0 0 64px;
   max-width: 64px;
   margin-inline-start: 8px;
+<<<<<<< HEAD
   font-size: 11px;
   line-height: 24px;
   color: rgb(255, 255, 255);
   text-align: end;
 
   font-family: Tahoma, PingFangSC, sans-serif;
+=======
+  // font-size: 10px;
+
+  // line-height: 16px;
+  // color: rgb(255, 255, 255);
+  text-align: end;
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
 }

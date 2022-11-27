@@ -242,6 +242,10 @@ export const PauseIcon = ({ fontSize = '20px', width = '24px', className, onClic
     ref={ref}
     onToggle={onToggle}
     onClick={onClick}
+<<<<<<< HEAD
+=======
+    className={className}
+>>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
     width={width}
     fontSize={fontSize}
     aria-hidden="true"
