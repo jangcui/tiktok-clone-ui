@@ -14,7 +14,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 
 const cx = classNames.bind(styles);
-
+ 
 function Home() {
   const [dataHome, setDataHome] = useState([]);
 
@@ -26,13 +26,13 @@ function Home() {
       })
       .catch((error) => console.log(error));
   }, []);
-  console.log(dataHome);
   return (
     <div className={cx('wrapper')}>
       {dataHome.map((data) => (
         <div className={cx('container')} key={data.id}>
           <Tippy
             interactive
+            visible
             delay={[800, 500]}
             placement="bottom-start"
             render={(props) => {
@@ -51,7 +51,6 @@ function Home() {
           </Tippy>
           <div className={cx('content')}>
             <div className={cx('nickname')}>
-<<<<<<< HEAD
               <a href=".">
                 <h3>
                   {data.user.nickname}
@@ -59,25 +58,6 @@ function Home() {
                 </h3>
                 <h4>{data.user.first_name + ' ' + data.user.last_name}</h4>
               </a>
-=======
-              <SubInfoAvatar
-                offset={[35, 45]}
-                delay={[800, 0]}
-                style1
-                data={data.user}
-                children={
-                  <>
-                    <a href=".">
-                      <h3 id="hover1">
-                        {data.user.nickname}
-                        {data.user.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
-                      </h3>
-                      <h4>{data.user.first_name + ' ' + data.user.last_name}</h4>
-                    </a>
-                  </>
-                }
-              />
->>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
             </div>
             <div className={cx('status')}>
               <span>

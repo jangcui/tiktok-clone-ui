@@ -4,24 +4,31 @@ import {
   CommentIcon,
   ShareIcon,
   DipIcon,
-  TelegramIcon,
+  TelegramRedIcon,
   FacebookIcon,
   WhatsAppIcon,
   LinksIcon,
   DownIcon,
+  TwitterIcon,
+  LinkedIcon,
+  TelegramBlueIcon,
+  EmailIcon,
+  LineIcon,
+  PinTeRestIcon,
 } from '~/component/Icons';
 
 import classNames from 'classnames/bind';
 import styles from './IconVideo.module.scss';
 
 const cx = classNames.bind(styles);
+
 const MENU_ITEMS = [
   {
     icon: <DipIcon />,
     title: 'Nhúng',
   },
   {
-    icon: <TelegramIcon />,
+    icon: <TelegramRedIcon />,
     title: 'Gửi đến bạn bè',
     to: '/feedback',
   },
@@ -38,25 +45,62 @@ const MENU_ITEMS = [
     icon: <LinksIcon />,
     title: 'Chia sẻ với liên kết',
   },
+
   {
-    icon: <DownIcon className="down-btn" />,
+    shareArrow: <DownIcon />,
     children: {
-      title: 'Language',
       data: [
         {
-          type: 'language',
-          code: 'vi',
-          title: 'Tiếng Việt',
+          icon: <DipIcon />,
+          title: 'Nhúng',
         },
         {
-          type: 'language',
-          code: 'en',
-          title: 'English',
+          icon: <TelegramRedIcon />,
+          title: 'Gửi đến bạn bè',
+        },
+        {
+          icon: <FacebookIcon />,
+          title: 'Chia sẻ với facebook',
+        },
+
+        {
+          icon: <WhatsAppIcon />,
+          title: 'Chia sẻ với Whats APp',
+        },
+        {
+          icon: <LinksIcon />,
+          title: 'Chia sẻ với liên kết',
+        },
+        {
+          icon: <TwitterIcon />,
+          title: 'Chia sẻ với Twitter',
+        },
+        {
+          icon: <LinkedIcon />,
+          title: 'Chia sẻ với LinkedIn',
+        },
+        {
+          icon: <TelegramBlueIcon />,
+          title: 'Chia sẻ với Telegram',
+        },
+
+        {
+          icon: <EmailIcon />,
+          title: 'Chia sẻ với Email',
+        },
+        {
+          icon: <LineIcon />,
+          title: 'Chia sẻ với Line',
+        },
+        {
+          icon: <PinTeRestIcon />,
+          title: 'Chia sẻ với Pinterest',
         },
       ],
     },
   },
 ];
+
 function IconVideo({ likeCount, commentsCount, shareCount }) {
   return (
     <div className={cx('wrapper')}>

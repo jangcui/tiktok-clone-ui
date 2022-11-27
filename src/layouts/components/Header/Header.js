@@ -4,7 +4,7 @@ import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
 import config from '~/config';
 
-import images from '~/asset/images';
+import images from '~/asset/Images';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
   faCircleQuestion,
@@ -52,6 +52,30 @@ const MENU_ITEMS = [
     title: 'keyboard shortcuts',
   },
 ];
+const userMenu = [
+  {
+    icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+    title: 'View profile',
+    to: '/@profile',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+    title: 'Get Coins',
+    to: '/coin',
+  },
+  {
+    icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+    title: 'Setting',
+    to: '/setting',
+  },
+  ...MENU_ITEMS,
+  {
+    icon: <FontAwesomeIcon icon={faCircleQuestion} />,
+    title: 'Log out',
+    to: '/logout',
+    separate: true,
+  },
+];
 
 function Header() {
   const currentUser = true;
@@ -64,30 +88,7 @@ function Header() {
       default:
     }
   };
-  const userMenu = [
-    {
-      icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-      title: 'View profile',
-      to: '/@hehe',
-    },
-    {
-      icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-      title: 'Get Coins',
-      to: '/coin',
-    },
-    {
-      icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-      title: 'Setting',
-      to: '/setting',
-    },
-    ...MENU_ITEMS,
-    {
-      icon: <FontAwesomeIcon icon={faCircleQuestion} />,
-      title: 'Log out',
-      to: '/logout',
-      separate: true,
-    },
-  ];
+
 
   return (
     <header className={cx('wrapper')}>

@@ -76,8 +76,6 @@ function Menu({
 
   return (
     <Tippy
-      visible={visible}
-      interactive={interactive}
       hideOnClick={hideOnClick}
       delay={delay}
       offset={offset}
