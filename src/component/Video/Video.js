@@ -13,9 +13,9 @@ function Video({ dataVideo, typeVideo }) {
 <<<<<<< HEAD
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMute, setIsMute] = useState(true);
-  const [volume, setVolume] = useState(0.8 ? localStorage.getItem('thisVolume') : 0.8);
-  const [currentTimeVideo, setCurrentVideo] = useState(0);
-  const [durationVideo, setDurationVideo] = useState(0);
+    const [volume, setVolume] = useState(localStorage.getItem('VOLUME') || 0.5);
+    const [currentTimeVideo, setCurrentVideo] = useState(0);
+    const [durationVideo, setDurationVideo] = useState(0);
 
   const videoRef = useRef();
   const volumeRef = useRef(volume);
@@ -49,7 +49,7 @@ function Video({ dataVideo, typeVideo }) {
   }, [isPlaying]);
 >>>>>>> d6f69fef05ba359894ba3593f4ae013b319f9907
 
-  const handlePlay = () => {
+    const handlePlay = () => {
     setIsPlaying(!isPlaying);
   };
 
@@ -75,6 +75,10 @@ function Video({ dataVideo, typeVideo }) {
     const percent = (currentTimeVideo / durationVideo) * 100;
     if (durationVideo > 10) {
       seekVideoRef.current.style.width = percent + '%';
+
+    const handleMute = () => {
+        setIsMute((e) => !e);
+        if (isMute) {
     }
   };
 
