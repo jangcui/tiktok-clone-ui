@@ -1,5 +1,11 @@
+import ModalAuth from '~/component/ModalAuth';
+
 function Live() {
-  return <h1>live page</h1>;
+    return (
+        <div>
+            <ModalAuth />
+        </div>
+    );
 }
 
 export default Live;

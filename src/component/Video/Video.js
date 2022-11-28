@@ -79,81 +79,68 @@ function Video({ dataVideo, typeVideo }) {
 
     return (
         <div className={cx('wrapper')} ref={ref}>
-            {/* <video
-                className={cx('video')}
-                tabIndex="2"
-                src={dataVideo}
-                type={typeVideo}
-                ref={videoRef}
-                onTimeUpdate={handleTimePlay}
-            /> */}
+            <div className={cx('container')}>
+                <div className={cx('wrap-video')}>
+                    <video
+                        className={cx('video')}
+                        tabIndex="2"
+                        src={dataVideo}
+                        type={typeVideo}
+                        ref={videoRef}
+                        loop
+                        onTimeUpdate={handleTimePlay}
+                    />
+                </div>
+                <p className={cx('flag')}>
+                    <FlagIcon />
+                    Báo cáo
+                </p>
 
-            <video
-                className={cx('video')}
-                tabIndex="2"
-                src={dataVideo}
-                type={typeVideo}
-                ref={videoRef}
-                loop
-                onTimeUpdate={handleTimePlay}
-            />
-            <p className={cx('flag')}>
-                <FlagIcon />
-                Báo cáo
-            </p>
-            {isPlaying ? (
-                <div onClick={handlePlay}>
-                    <PauseIcon className={cx('pause')} />
-                </div>
-            ) : (
-                <div onClick={handlePlay}>
-                    <PlayIcon className={cx('play')} />
-                </div>
-            )}
-            {!isMute ? (
-                <div onClick={handleMute} className={cx('sound', 'mute')}>
-                    <MuteIcon />
-                </div>
-            ) : (
-                <div onClick={handleMute} className={cx('sound')}>
-                    <VolumeIcon />
-                </div>
-            )}
-            <div className={cx('wrap-volume')}>
-                <input
-                    className={cx('slider-volume')}
-                    type="range"
-                    min={0}
-                    max={1}
-                    step="0.05"
-                    ref={volumeRef}
-                    value={volume}
-                    onChange={handleVolume}
-                />
-            </div>
-            {durationVideo > 7 && (
-                <div className={cx('wrap-slider')}>
-                    <div className={cx('seek-slider')} onClick={handleSeek}>
-                        <span className={cx('progress')} ref={seekVideoRef}>
-                            <span className={cx('process')}></span>
-                        </span>
+                {isPlaying ? (
+                    <div onClick={handlePlay}>
+                        <PauseIcon className={cx('pause')} />
                     </div>
+                ) : (
+                    <div onClick={handlePlay}>
+                        <PlayIcon className={cx('play')} />
+                    </div>
+                )}
+                {!isMute ? (
+                    <div onClick={handleMute} className={cx('sound', 'mute')}>
+                        <MuteIcon />
+                    </div>
+                ) : (
+                    <div onClick={handleMute} className={cx('sound')}>
+                        <VolumeIcon />
+                    </div>
+                )}
+                <div className={cx('wrap-volume')}>
+                    <input
+                        className={cx('slider-volume')}
+                        type="range"
+                        min={0}
+                        max={1}
+                        step="0.05"
+                        ref={volumeRef}
+                        value={volume}
+                        onChange={handleVolume}
+                    />
+                </div>
+                {durationVideo >= 10 && (
+                    <div className={cx('wrap-slider')}>
+                        <div className={cx('seek-slider')} onClick={handleSeek}>
+                            <span className={cx('progress')} ref={seekVideoRef}>
+                                <span className={cx('process')}></span>
+                            </span>
+                        </div>
 
-                    <div className={cx('seek-timer')}>
-                        <FormatTime time={currentTimeVideo} /> /
-                        <FormatTime time={durationVideo} />
+                        <div className={cx('seek-timer')}>
+                            <FormatTime time={currentTimeVideo} /> /
+                            <FormatTime time={durationVideo} />
+                        </div>
                     </div>
-                </div>
-            )}
-            {/* <div className={cx('wrap-slider')}>
-                <div className={cx('seek-slider')} onChange={handleSeek}>
-                    <span className={cx('progress')}>
-                        <span className={cx('process')}></span>
-                    </span>
-                </div>
-                <div className={cx('seek-timer')}>12:00</div>
+                )}
             </div>
-        </div> */}
         </div>
     );
 }
