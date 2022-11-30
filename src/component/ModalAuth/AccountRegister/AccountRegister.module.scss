@@ -7,10 +7,6 @@
     background: #fff;
 }
 
-.container h1 {
-    text-align: center;
-}
-
 .container form {
     padding: 0 35px;
 }
@@ -18,9 +14,16 @@
 form .form-control {
     position: relative;
     border-bottom: 2px solid #adadad;
-    margin-bottom: 40px;
+    margin-bottom: 26px;
 }
-
+.guide {
+    position: absolute;
+    font-size: 12px;
+    top: -24px;
+    right: -80px;
+    color: #49a2e9;
+    width: 405px;
+}
 .form-control.success {
     border-bottom-color: var(--main-color);
 }
@@ -57,10 +60,37 @@ small {
 .form-control input:focus ~ span::before {
     width: 100%;
 }
+.hidden {
+    position: absolute;
+    right: 6px;
+    top: 18px;
+    font-size: 16px;
+    color: #420808e0;
+    cursor: pointer;
+}
 .btn {
     width: 100%;
     display: flex;
     justify-content: center;
     padding: 20px;
     font-size: 20px;
+}
+.loading {
+    position: fixed;
+    width: 100%;
+    display: flex;
+    margin-top: 20px;
+    z-index: 199;
+    justify-content: center;
+    align-items: center;
+}
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background-color: #000000;
+    border-radius: 8px;
+    opacity: 0.6;
+    z-index: 0;
+    inset: 0;
 }

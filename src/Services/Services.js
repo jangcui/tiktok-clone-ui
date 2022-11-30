@@ -39,3 +39,26 @@ export const search = async (q, type = 'less') => {
         console.log('lỡi');
     }
 };
+export const register = async ({ type = 'email', email, password }) => {
+    try {
+        const res = await httpRequest.post('auth/register', {
+            type,
+            email: `${email}@gmail.com`,
+            password: password,
+        });
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
+export const login = async ({ email, password }) => {
+    try {
+        const res = await httpRequest.post('auth/login', {
+            email: `${email}@gmail.com`,
+            password: password,
+        });
+        return res;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
