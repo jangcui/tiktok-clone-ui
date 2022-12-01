@@ -101,7 +101,7 @@ function FormSignUp() {
                 <div className={cx('overlay')}></div>
             </div>
             <div className={cx('container')}>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit}></form>
                     <div className={cx('form-control')}>
                         <input
                             type="text"
