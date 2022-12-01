@@ -76,7 +76,7 @@ Button.propTypes = {
     normal: PropTypes.bool,
     disable: PropTypes.bool,
     rounded: PropTypes.bool,
-    children: PropTypes.node.isRequired,
+    children: PropTypes.node,
     onClick: PropTypes.func,
     leftIcon: PropTypes.node,
     rightIcon: PropTypes.node,

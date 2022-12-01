@@ -1,11 +1,6 @@
-import Menu from '~/component/Popper/Menu';
+import { useEffect, useState } from 'react';
 import className from 'classnames/bind';
-import styles from './Header.module.scss';
 import { Link } from 'react-router-dom';
-import config from '~/config';
-
-import images from '~/asset/Images';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCircleQuestion,
     faEarthAsia,
@@ -13,12 +8,19 @@ import {
     faKeyboard,
     faPlus,
 } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react';
+import images from '~/asset/Images';
 
 import Button from '~/component/Button';
 import { MessageIcon, UploadIcon } from '~/component/Icons';
 import Image from '~/component/Image';
+import ModalAuth from '~/component/ModalAuth';
+import UserContext from '~/component/UserContext';
 import Search from '../Search';
+import Menu from '~/component/Popper/Menu';
+import config from '~/config';
+import styles from './Header.module.scss';
 
 const cx = className.bind(styles);
 
@@ -78,12 +80,32 @@ const userMenu = [
 ];
 
 function Header() {
-    const currentUser = true;
+    const user = UserContext();
+    const [openModal, setOpenModal] = useState(false);
+    const [dataUser, setDataUser] = useState({});
+
+    useEffect(() => {
+        !!user ? setDataUser(user) : setDataUser({});
+    }, [user]);
+
+    const handleLogout = () => {
+        localStorage.clear();
+        window.location.reload();
+    };
 
     const handleMenuChange = (menuItem) => {
+        console.log(menuItem);
         switch (menuItem.type) {
-            case 'language':
+            case '/logout':
                 // Handle change language
+                console.log(123);
+                break;
+            default:
+        }
+        switch (menuItem.to) {
+            case '/logout':
+                handleLogout();
+                console.log(123);
                 break;
             default:
         }
@@ -91,6 +113,7 @@ function Header() {
 
     return (
         <header className={cx('wrapper')}>
+            <ModalAuth isOpen={openModal} onClose={() => setOpenModal(false)} />
             <div className={cx('inner')}>
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo-link')}>
@@ -100,46 +123,53 @@ function Header() {
 
                 <Search />
                 <div className={cx('actions')}>
-                    {currentUser ? (
-                        <>
-                            <Button normal className={cx('plus-upload')}>
-                                <FontAwesomeIcon icon={faPlus} />
-                                Up Load
+                    <>
+                        <Button
+                            normal
+                            className={cx('plus-upload')}
+                            onClick={() => {
+                                !!user ? setOpenModal(false) : setOpenModal(true);
+                            }}
+                        >
+                            <FontAwesomeIcon icon={faPlus} />
+                            Up Load
+                        </Button>
+                        {!!user ? (
+                            <>
+                                <Tippy content="Message" placement="bottom" delay={[0, 200]}>
+                                    <button className={cx('btn-actions')}>
+                                        <UploadIcon />
+                                    </button>
+                                </Tippy>
+                                <Tippy content="Box" placement="bottom" delay={[0, 200]}>
+                                    <button className={cx('btn-actions')}>
+                                        <span className={cx('notify')}>12</span>
+                                        <MessageIcon />
+                                    </button>
+                                </Tippy>
+                            </>
+                        ) : (
+                            <Button
+                                primary
+                                onClick={() => {
+                                    setOpenModal(true);
+                                }}
+                            >
+                                Log in
                             </Button>
-                            <Tippy content="Message" placement="bottom" delay={[0, 200]}>
-                                <button className={cx('btn-actions')}>
-                                    <UploadIcon />
-                                </button>
-                            </Tippy>
+                        )}
+                    </>
 
-                            <Tippy content="Box" placement="bottom" delay={[0, 200]}>
-                                <button className={cx('btn-actions')}>
-                                    <span className={cx('notify')}>12</span>
-                                    <MessageIcon />
-                                </button>
-                            </Tippy>
-                        </>
-                    ) : (
-                        <>
-                            <Button text>Up Load</Button>
-                            <Button primary>Log ddin</Button>
-                        </>
-                    )}
                     <Menu
-                        menuUser
                         interactive
-                        items={currentUser ? userMenu : MENU_ITEMS}
+                        items={!!user ? userMenu : MENU_ITEMS}
                         onChange={handleMenuChange}
                         delay={[0, 700]}
                         offset={[12, 8]}
                         placement="bottom-end"
                     >
-                        {currentUser ? (
-                            <Image
-                                className={cx('user-avatar')}
-                                src="https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/1278fdc7ca7d4011ad234b8be1f5d7f0~c5_100x100.jpeg?x-expires=1660834800&x-signature=rZ9hbecI5vIy7xBQCPft9urDy%2BQ%3D"
-                                alt="hehe"
-                            />
+                        {!!user ? (
+                            <Image className={cx('user-avatar')} src={dataUser.avatar} alt="hehe" />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />

@@ -122,14 +122,17 @@ const MENU_SIGN_IN = [
         ],
     },
 ];
-function ModalAuth() {
+function ModalAuth({ isOpen, onClose }) {
     const [items, setItems] = useState(MENU_SIGN_UP);
     const [isNav, setIsNav] = useState(false);
 
     useEffect(() => {
         isNav ? setItems(MENU_SIGN_IN) : setItems(MENU_SIGN_UP);
     }, [isNav]);
-    const handleClose = () => {};
+
+    if (!isOpen) {
+        return null;
+    }
 
     const handleItems = (item) => {
         switch (item.type) {
@@ -145,13 +148,14 @@ function ModalAuth() {
     const handleBack = () => {
         isNav ? setItems(MENU_SIGN_IN) : setItems(MENU_SIGN_UP);
     };
+
     return ReactDom.createPortal(
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('content')}>
                     <div className={cx('header')}>
                         {!isNav ? <h1> Log in to TikTok</h1> : <h1> Sign up for TikTok</h1>}
-                        <span onClick={handleClose} className={cx('icon-close')}>
+                        <span className={cx('icon-close')} onClick={onClose}>
                             <CloseIcon />
                         </span>
                         {items.length === 0 && (

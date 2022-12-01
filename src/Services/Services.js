@@ -48,7 +48,7 @@ export const register = async ({ type = 'email', email, password }) => {
         });
         return res.data;
     } catch (error) {
-        console.log('lỡi');
+        console.log(error);
     }
 };
 export const login = async ({ email, password }) => {
@@ -59,6 +59,6 @@ export const login = async ({ email, password }) => {
         });
         return res;
     } catch (error) {
-        console.log('lỡi');
+        console.log(error);
     }
 };

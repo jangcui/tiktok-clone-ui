@@ -8,11 +8,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-regular-svg-icons';
 import Loading from '~/component/Loading';
+import { useDebounce } from '~/hook';
 const cx = classNames.bind(styles);
 
 const REGEX_USER = /^[a-zA-Z](_(?!(\.|_))|\.(?!(_|\.))|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$/;
 
 function FormSignUp() {
+    const [isLoading, setIsLoading] = useState(false);
+    const [isLogin, setIsLogin] = useState(false);
+
     const [userName, setUserName] = useState('');
     const [errUserName, setErrUserName] = useState(false);
 
@@ -25,14 +29,23 @@ function FormSignUp() {
     const [hiddenPwd, setHiddenPwd] = useState(true);
     const [hiddenCfPwd, setHiddenCfPwd] = useState(true);
 
+    const [errSignUp, setErrSignUp] = useState(false);
     const [isOke, setIsOke] = useState(false);
 
     const userNameRef = useRef();
+
+    const debounceUserName = useDebounce(userName, 2000);
+    const debouncePwd = useDebounce(pwd, 2000);
+
+    const debounceIsLogin = useDebounce(isLogin, 300);
 
     useEffect(() => {
         userNameRef.current.focus();
         setErrUserName(false);
     }, []);
+    useEffect(() => {
+        debounceIsLogin && window.location.reload();
+    }, [debounceIsLogin]);
 
     useEffect(() => {
         if (errPwd || ErrCfPwd || errUserName) {
@@ -67,41 +80,61 @@ function FormSignUp() {
     };
 
     const handleSubmit = (e) => {
+        setIsLoading(true);
         e.preventDefault();
-        Services.register({ email: userName, password: pwd })
+        Services.register({ email: debounceUserName, password: debouncePwd })
             .then((data) => {
                 if (data) {
-                    // setUserName('');
-                    // setPwd('');
-                    // setConfirmPwd('');
-                    console.log(data);
-                    alert('Successfully registered, please log in');
+                    setUserName('');
+                    setPwd('');
+                    setConfirmPwd('');
+                    handleLogin();
+                } else {
+                    setIsLoading(false);
+                    setErrSignUp(true);
                 }
             })
-            .then(() => {
-                Services.login({ email: userName, password: pwd }).then((data) => {
-                    if (data) {
-                        console.log(data);
-                        console.log(data.data);
-                        console.log(data.meta.token);
-                        localStorage.setItem('USER', JSON.stringify(data.data));
-                        localStorage.setItem('TOKEN', JSON.stringify(data.meta.token));
-                        // window.location.reload();
-                    }
-                });
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    const handleLogin = () => {
+        Services.login({ email: debounceUserName, password: debouncePwd })
+            .then((data) => {
+                if (data) {
+                    setIsLogin(true);
+                    setIsLoading(false);
+                    localStorage.setItem('USER_LOGIN', JSON.stringify(data.data));
+                    localStorage.setItem('TOKEN', data.meta.token);
+                    alert('success register');
+                }
             })
+            .then(() => {})
             .catch((error) => console.log(error));
     };
 
     console.log(confirmPwd);
     return (
         <div>
-            <div className={cx('loading')}>
-                <Loading />
-                <div className={cx('overlay')}></div>
-            </div>
+            {isLoading && (
+                <>
+                    <div className={cx('loading')}>
+                        <Loading />
+                    </div>
+
+                    <div className={cx('overlay')}> </div>
+                </>
+            )}
+            {debounceIsLogin && (
+                <>
+                    <div className={cx('loading')}>
+                        <h2> Logged in.....</h2>
+                    </div>
+                    <div className={cx('overlay')}> </div>
+                </>
+            )}
             <div className={cx('container')}>
-                <form onSubmit={handleSubmit}></form>
+                <form onSubmit={handleSubmit}>
                     <div className={cx('form-control')}>
                         <input
                             type="text"
@@ -111,9 +144,10 @@ function FormSignUp() {
                             onChange={handleUserName}
                             value={userName}
                             onFocus={() => {
+                                setErrSignUp(false);
                                 setErrUserName(false);
                             }}
-                            onBlur={(e) => {
+                            onBlur={() => {
                                 if (!REGEX_USER.test(userName)) {
                                     setErrUserName(true);
                                 }
@@ -136,6 +170,8 @@ function FormSignUp() {
                             onChange={handlePwd}
                             autoComplete="current-password"
                             onFocus={() => {
+                                setErrSignUp(false);
+
                                 setErrPwd(false);
                             }}
                             onBlur={(e) => {
@@ -166,6 +202,8 @@ function FormSignUp() {
                             autoComplete="new-password"
                             onChange={handleConfirm}
                             onFocus={() => {
+                                setErrSignUp(false);
+
                                 setErrCfPwd(false);
                             }}
                             onBlur={() => {
@@ -187,6 +225,7 @@ function FormSignUp() {
                                 <FontAwesomeIcon icon={faEye} />
                             </div>
                         )}
+                        {errSignUp && <small>This user name had been used, please try another one</small>}
                     </div>
                     <Button outline large disable={isOke} className={cx('btn')}>
                         <p>Sign up</p>
