@@ -39,12 +39,12 @@ function FormLogin() {
     }, []);
 
     useEffect(() => {
-        if (errPwd || errUserName) {
+        if (errPwd || errUserName || errLogin) {
             setIsOke(true);
         } else {
             setIsOke(false);
         }
-    }, [errPwd, errUserName, isOke]);
+    }, [errPwd, errUserName, isOke, errLogin]);
 
     const handleUserName = (e) => {
         let value = e.target.value;

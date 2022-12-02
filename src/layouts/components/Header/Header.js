@@ -161,7 +161,6 @@ function Header() {
                     </>
 
                     <Menu
-                        interactive
                         items={!!user ? userMenu : MENU_ITEMS}
                         onChange={handleMenuChange}
                         delay={[0, 700]}

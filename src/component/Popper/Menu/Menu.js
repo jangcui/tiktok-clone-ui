@@ -18,8 +18,8 @@ function Menu({
     hideOnClick = false,
     onChange = defaultfn,
     placement,
-    offset,
-    delay,
+    offset = [],
+    delay = [],
     interactive = true,
     visible = true,
     menuShare = false,
@@ -64,7 +64,7 @@ function Menu({
     const renderResult = (attrs) => (
         <div className={cx('content')} tabIndex="-1" {...attrs}>
             <PopperWrapper className={classes} {...props}>
-                {history.length > 1 && <Header title={current.title} onBack={handleBack} />}
+                {history.length > 1 && !menuShare && <Header title={current.title} onBack={handleBack} />}
                 <div className={cx('menu-body')}> {renderItems()}</div>
             </PopperWrapper>
         </div>
@@ -77,9 +77,9 @@ function Menu({
     return (
         <Tippy
             interactive
-            hideOnClick={hideOnClick}
             delay={delay}
             offset={offset}
+            hideOnClick={hideOnClick}
             placement={placement}
             render={renderResult}
             onHide={handleReset}

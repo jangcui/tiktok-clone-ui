@@ -1,54 +1,66 @@
 //menu items
 .content {
-  width: 224px;
+    width: 224px;
 
-  .menu-items {
-    justify-content: flex-start;
-    width: 100%;
-    border-radius: 0;
-    font-weight: 500;
-    padding: 11px 16px;
-    line-height: 1.8rem;
-    margin-left: unset !important;
+    .menu-items {
+        justify-content: flex-start;
+        width: 100%;
+        border-radius: 8px;
+        font-weight: 500;
+        padding: 11px 16px;
+        line-height: 1.8rem;
+        margin-left: unset !important;
 
-    &.separate {
-      border-top: 1px solid rgba(22, 24, 35, 0.12);
+        &.separate {
+            border-top: 1px solid rgba(22, 24, 35, 0.12);
+        }
+
+        &.shareArrow {
+            justify-content: center;
+            height: 20px;
+        }
     }
-  }
-  .menu-items:hover {
-    background-color: rgba(22, 24, 35, 0.03);
-  }
+    .menu-items:hover {
+        background-color: rgba(22, 24, 35, 0.03);
+    }
 }
 
 .menuUser {
-  padding-bottom: 8px;
+    padding-bottom: 8px;
 }
 
 .menuShare {
-  width: 280px !important;
+    width: 280px !important;
+    margin: 12px 0;
 }
 
 .menu-body {
-  overflow-y: auto;
+    margin: 4px 0;
+    max-height: 380px;
+    border-radius: 8px;
+    overflow-y: overlay;
 }
-
+.menu-body::-webkit-scrollbar {
+    width: 4px;
+    border-radius: 10px;
+}
 .header {
-  position: relative;
-  flex-shrink: 0;
-  height: 50px;
-  margin-top: -8px;
+    position: relative;
+    flex-shrink: 0;
+    height: 50px;
+    margin-top: -8px;
 }
 
 .back-btn {
-  width: 50px;
-  height: 100%;
-  background-color: transparent;
-  cursor: pointer;
+    width: 50px;
+    height: 100%;
+    background-color: transparent;
+    cursor: pointer;
 }
 
 .header-title {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }

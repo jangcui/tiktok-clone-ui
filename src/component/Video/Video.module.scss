@@ -18,13 +18,13 @@
 .wrap-video {
     display: block;
     height: auto;
-    border-radius: 8px;
+    border-radius: 6px;
     max-width: 450px;
     object-fit: fill;
 }
 .video {
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 6px;
     width: 100%;
     max-height: 475px;
 }
@@ -137,7 +137,7 @@
     height: 3px;
     border-radius: 3px;
     flex: 1 1 auto;
-    background-color: rgba(255, 228, 196, 0.708);
+    background-color: rgba(255, 228, 196);
 }
 
 .progress {
@@ -159,7 +159,7 @@
     width: 14px;
     height: 14px;
     transition: linear 4s ease 0s;
-    background-color: rgba(11, 155, 165, 0.836);
+    background-color: rgba(11, 155, 165);
     opacity: 0;
 }
 

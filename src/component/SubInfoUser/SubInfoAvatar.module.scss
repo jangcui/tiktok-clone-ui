@@ -1,55 +1,65 @@
 .wrapper {
-  background-color: var(--white);
-  width: 320px;
-  padding: 20px;
-  box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
-  border-radius: 8px;
+    background-color: var(--white);
+    width: 320px;
+    padding: 20px;
+    box-shadow: rgb(0 0 0 / 12%) 0px 4px 16px;
+    border-radius: 8px;
 
-  span + span {
-    margin-left: 10px;
-    margin-bottom: 10px;
-  }
-  span {
-    cursor: pointer;
-  }
+    span + b {
+        margin-left: 12px;
+        margin-bottom: 10px;
+    }
+    span {
+        cursor: pointer;
+    }
 }
 
 .logo {
-  border-radius: 50%;
-  width: 44px;
-  height: 44px;
-  cursor: pointer;
+    border-radius: 50%;
+    width: 44px;
+    height: 44px;
+    cursor: pointer;
 }
 
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
 }
 
 .btn {
-  width: 106px;
-  height: 34px;
+    width: 106px;
+    height: 34px;
 }
-
+.follow {
+    span {
+        font-size: 16px;
+        color: #16182380;
+    }
+}
 .nickname {
-  color: rgb(22, 24, 35);
-  font-weight: 700;
-  font-size: 18px;
-  margin-bottom: 10px;
-  line-height: 22px;
-  cursor: pointer;
+    color: rgb(22, 24, 35);
+    font-weight: 700;
+    font-size: 18px;
+    margin-bottom: 10px;
+    line-height: 22px;
+    cursor: pointer;
 }
 
 .check {
-  color: rgb(32, 213, 236);
+    background-color: rgb(32, 213, 236);
 }
 
 .user-card {
-  font-size: 14px;
-  line-height: 20px;
-  padding-top: 16px;
-  margin-top: 16px;
-  border-top: 1px solid rgba(22, 24, 35, 0.12);
+    font-size: 14px;
+    line-height: 20px;
+    padding-top: 16px;
+    margin-top: 16px;
+    border-top: 1px solid rgba(22, 24, 35, 0.12);
+}
+.count {
+    font-size: 18px;
+    color: var(--primary);
+    margin-right: 6px;
 }

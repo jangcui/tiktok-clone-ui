@@ -18,7 +18,7 @@ function Video({ dataVideo, typeVideo }) {
 
     const { ref, inView } = useInView({
         threshold: 0.8,
-        delay: 600,
+        delay: 800,
     });
 
     useEffect(() => {

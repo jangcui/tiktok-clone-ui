@@ -1,12 +1,17 @@
 :root {
     --animation-duration: 0.8s;
-    --circle-diameter: 26px;
+    --circle-diameter: 20px;
     --circle-scale-percent: 0.4;
 }
 
+.app {
+    width: 100%;
+    overflow: hidden;
+}
 .loader {
-    position: relative;
-    left: calc(var(--circle-diameter) * -1);
+    position: absolute;
+    left: 50%;
+    height: 30px;
 }
 
 .loader:before,

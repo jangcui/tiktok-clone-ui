@@ -14,11 +14,19 @@ import * as Services from '~/Services/Services';
 import styles from './Sidebar.module.scss';
 import config from '~/config';
 import Menu, { MenuItems } from './Menu';
+import Button from '~/component/Button';
+import UserContext from '~/component/UserContext';
+import ModalAuth from '~/component/ModalAuth';
+import FooterSidebar from './FooterSidebar';
+import DiscoverSidebar from './DiscoverSidebar';
 
 const cx = classNames.bind(styles);
 const PER_PAGE = 5;
 
 function Sidebar() {
+    const user = UserContext();
+
+    const [openModal, setOpenModal] = useState(false);
     const [suggestedUser, setSuggestedUser] = useState([]);
 
     useEffect(() => {
@@ -30,6 +38,7 @@ function Sidebar() {
     }, []);
     return (
         <aside className={cx('wrapper')}>
+            <ModalAuth isOpen={openModal} onClose={() => setOpenModal(false)} />
             <Menu>
                 <MenuItems
                     title="For You"
@@ -44,9 +53,23 @@ function Sidebar() {
                     activeIcon={<UserGroupActiveIcon />}
                 />
                 <MenuItems title="LIVE" to={config.routes.live} icon={<LiveIcon />} activeIcon={<LiveActiveIcon />} />
-
+                {!!!user && (
+                    <div className={cx('btn-login')}>
+                        <p className={cx('btn-title')}>
+                            Đăng nhập để follow các tác giả, thích video và xem bình luận.
+                        </p>
+                        <Button large outline onClick={() => setOpenModal(true)}>
+                            <b> Log in</b>
+                        </Button>
+                    </div>
+                )}
                 <SuggestAccounts label="suggested accounts" data={suggestedUser} />
-                <SuggestAccounts label="following accounts" />
+
+                <SuggestAccounts label="following accounts" data={suggestedUser} />
+
+                <DiscoverSidebar />
+
+                <FooterSidebar />
             </Menu>
         </aside>
     );
