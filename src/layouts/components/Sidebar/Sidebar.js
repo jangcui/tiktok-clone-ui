@@ -23,7 +23,7 @@ import DiscoverSidebar from './DiscoverSidebar';
 const cx = classNames.bind(styles);
 const PER_PAGE = 5;
 
-function Sidebar() {
+function Sidebar({ small = false }) {
     const user = UserContext();
 
     const [openModal, setOpenModal] = useState(false);
@@ -37,7 +37,7 @@ function Sidebar() {
             .catch((error) => console.log(error));
     }, []);
     return (
-        <aside className={cx('wrapper')}>
+        <aside className={cx('wrapper', small && 'small')}>
             <ModalAuth isOpen={openModal} onClose={() => setOpenModal(false)} />
             <Menu>
                 <MenuItems

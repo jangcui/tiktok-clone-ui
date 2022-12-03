@@ -1,12 +1,15 @@
 .wrapper {
     position: relative;
     margin-top: 8px;
+
     cursor: pointer;
     &:hover .flag,
     &:hover .play,
     &:hover .pause,
-    &:hover .sound {
+    &:hover .sound,
+    &:hover .wrap-slider {
         visibility: unset;
+        transition: 0.2s;
     }
 }
 .container {
@@ -83,6 +86,7 @@
     background-color: rgb(78, 68, 68);
     transform: rotate(-90deg);
     cursor: pointer;
+
     visibility: hidden;
 
     &:hover {
@@ -119,6 +123,8 @@
     align-items: center;
     width: 100%;
     padding-inline: 12px;
+    visibility: hidden;
+    transition: 0.2s;
 
     &:hover .process {
         opacity: 1;

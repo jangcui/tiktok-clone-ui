@@ -252,11 +252,11 @@ export const PauseIcon = ({ height = '20px', width = '24px', className }) => (
         ></path>
     </svg>
 );
-export const FlagIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const FlagIcon = ({ height = '16', width = '18px', className }) => (
     <svg
         className={className}
         width={width}
-        fontSize={fontSize}
+        height={height}
         aria-hidden="true"
         focusable="false"
         dataprefix="fas"

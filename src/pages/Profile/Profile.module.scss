@@ -1,0 +1,88 @@
+.wrapper {
+    width: 100%;
+    height: 100vh;
+}
+
+.header {
+}
+.container {
+    display: flex;
+    height: 100%;
+    justify-content: flex-start;
+}
+.sidebar {
+    width: 240px;
+    background-color: rgb(255, 0, 170);
+}
+.content {
+    margin-top: 60px;
+    flex: 1 1;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 24px;
+}
+.user {
+    position: relative;
+    margin-bottom: 20px;
+    max-width: 624px;
+    padding-right: 92px;
+
+    .main-user {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+    }
+    .avatar {
+        width: 116px;
+        height: 116px;
+        vertical-align: middle;
+        border-radius: 50%;
+        cursor: pointer;
+        object-fit: cover;
+    }
+    .info-user {
+        display: flex;
+        flex-direction: column;
+        margin-left: 20px;
+
+        .nickname {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 38px;
+        }
+        .name {
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 20px;
+            margin-bottom: 20px;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 20px;
+            margin-bottom: 20px;
+        }
+    }
+    .btn {
+    }
+    .count-user {
+        display: flex;
+        align-items: center;
+        margin-top: 22px;
+        justify-content: flex-start;
+        color: #121212bf;
+
+        b {
+            color: var(--primary);
+            margin-right: 6px;
+        }
+        span {
+            margin-right: 14px;
+        }
+    }
+    .bio-user {
+    }
+}
+
+.wrap-videos {
+    flex: 1;
+    background-color: brown;
+}

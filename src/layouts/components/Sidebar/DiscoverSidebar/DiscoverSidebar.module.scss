@@ -19,6 +19,7 @@
     }
 
     .btn {
+        position: relative;
         display: flex;
         box-sizing: border-box;
         max-width: 100%;
@@ -34,7 +35,10 @@
         min-height: 24px;
         align-items: center;
         text-align: center;
-        position: relative;
+
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
 
         &:hover {
             cursor: pointer;

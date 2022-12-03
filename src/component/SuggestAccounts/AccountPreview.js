@@ -21,7 +21,14 @@ function AccountPreview({ data }) {
         );
     };
     return (
-        <Tippy interactive delay={[800, 300]} offset={[-20, 0]} placement="bottom" render={renderPreview}>
+        <Tippy
+            interactive
+            delay={[800, 300]}
+            offset={[-20, 0]}
+            placement="bottom"
+            zIndex={99999}
+            render={renderPreview}
+        >
             <div className={cx('account-item')}>
                 <Image className={cx('avatar')} src={data.avatar} alt="kk" />
                 <div className={cx('info')}>

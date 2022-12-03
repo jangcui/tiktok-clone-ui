@@ -79,7 +79,7 @@ const userMenu = [
     },
 ];
 
-function Header() {
+function Header({ small }) {
     const user = UserContext();
     const [openModal, setOpenModal] = useState(false);
     const [dataUser, setDataUser] = useState({});
@@ -114,7 +114,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <ModalAuth isOpen={openModal} onClose={() => setOpenModal(false)} />
-            <div className={cx('inner')}>
+            <div className={cx('inner', small && 'small')}>
                 <div className={cx('logo')}>
                     <Link to={config.routes.home} className={cx('logo-link')}>
                         <img src={images.logo} alt="logo-tiktok" />
@@ -132,7 +132,7 @@ function Header() {
                             }}
                         >
                             <FontAwesomeIcon icon={faPlus} />
-                            Up Load
+                            <b> Up Load</b>
                         </Button>
                         {!!user ? (
                             <>
@@ -155,7 +155,7 @@ function Header() {
                                     setOpenModal(true);
                                 }}
                             >
-                                Log in
+                                <b> Log in</b>
                             </Button>
                         )}
                     </>

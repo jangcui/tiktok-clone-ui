@@ -18,12 +18,22 @@ function Video({ dataVideo, typeVideo }) {
 
     const { ref, inView } = useInView({
         threshold: 0.8,
-        delay: 800,
+        delay: 600,
     });
 
     useEffect(() => {
-        inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
         setDurationVideo(videoRef.current.duration);
+        if (inView) {
+            if (isPlaying) {
+                videoRef.current.play();
+            } else {
+                videoRef.current.pause();
+            }
+        } else {
+            videoRef.current.pause();
+            videoRef.current.currentTime = 0;
+        }
+        // inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
     }, [isPlaying, currentTimeVideo, inView]);
 
     const handlePlay = () => {
@@ -35,7 +45,7 @@ function Video({ dataVideo, typeVideo }) {
 
     const handleMute = () => {
         setIsMute(!isMute);
-        isMute ? setVolume(0) : setVolume(localStorage.getItem('VOLUME') || 0.55);
+        isMute ? setVolume(0) : setVolume(0.55);
     };
 
     const handleVolume = (e) => {
@@ -60,9 +70,9 @@ function Video({ dataVideo, typeVideo }) {
         let seekWidth = e.nativeEvent.offsetX;
         let progressWidth = parent.offsetWidth;
 
-        const cc = (seekWidth * durationVideo) / progressWidth;
-        videoRef.current.currentTime = cc;
-        setCurrentVideo(cc);
+        const pr = (seekWidth * durationVideo) / progressWidth;
+        videoRef.current.currentTime = pr;
+        setCurrentVideo(pr);
     };
 
     const FormatTime = ({ time }) => {
