@@ -1,13 +1,46 @@
 import classNames from 'classnames/bind';
-import Button from '~/component/Button';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { CheckIcon, DotsIcon, LockIcon, ShareIcon } from '~/component/Icons';
 import Image from '~/component/Image';
-import Video from '~/component/Video';
+import * as Services from '~/Services/Services';
 import Header from '~/layouts/components/Header';
 import Sidebar from '~/layouts/components/Sidebar';
 import styles from './Profile.module.scss';
+import { useDebounce } from '~/hook';
+import Loading from '~/component/Loading';
+import BtnToggleFollow from '~/component/BtnToggleFollow';
 const cx = classNames.bind(styles);
 
 function Profile() {
+    const [activeBtn, setActiveBtn] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
+    const pathName = useLocation();
+    const nickName = pathName.pathname;
+
+    const [data, setData] = useState({});
+
+    const dataUser = useDebounce(data, 800);
+
+    useEffect(() => {
+        if (dataUser) {
+            setIsLoading(false);
+        }
+    }, [dataUser]);
+    useEffect(() => {
+        setIsLoading(true);
+        Services.getAnUser(nickName)
+            .then((data) => {
+                if (data) {
+                    setData(data);
+                }
+            })
+            .catch((error) => {
+                setIsLoading(false);
+                console.log(error);
+            });
+    }, [nickName]);
+    console.log(dataUser);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -17,53 +50,102 @@ function Profile() {
                 <div className={cx('sidebar')}>
                     <Sidebar small />
                 </div>
-                <div className={cx('content')}>
-                    <div className={cx('user')}>
-                        <div className={cx('main-user')}>
-                            <Image
-                                className={cx('avatar')}
-                                src="https://files.fullstack.edu.vn/f8-tiktok/users/211/63667b3246f40.jpg"
-                                alt="hehe"
-                            />
-                            <div className={cx('info-user')}>
-                                <h2 className={cx('nickname')}>
-                                    nick name <span>icon check</span>
-                                </h2>
-                                <h1 className={cx('name')}>name</h1>
-                                <Button primary>follow</Button>
-                            </div>
-                            <div className={cx('btn')}>btn share</div>
-                        </div>
-                        <div className={cx('count-user')}>
-                            <b>12</b>
-                            <span>Đang Follow</span>
-                            <b>1874</b>
-                            <span>Follower</span>
-                            <b>62.9K</b>
-                            <span>Thích</span>
-                        </div>
-                        <div className={cx('bio-user')}>
-                            <p>bio w/o the o 🫶🏽 snap: Manaia.simeonnn gone ghost.</p>
-                        </div>
+                {isLoading ? (
+                    <div className={cx('loading')}>
+                        <Loading />
                     </div>
+                ) : (
+                    <>
+                        <div className={cx('content')}>
+                            <div className={cx('user')}>
+                                <div className={cx('main-user')}>
+                                    <Image className={cx('avatar')} src={dataUser.avatar} alt="avatar" />
+                                    <div className={cx('info-user')}>
+                                        <h2 className={cx('nickname')}>
+                                            {dataUser.nickname} {dataUser.tick && <CheckIcon className={cx('check')} />}
+                                        </h2>
+                                        <h4 className={cx('name')}>{dataUser.first_name + ' ' + dataUser.last_name}</h4>
 
-                    <div className={cx('wrap-videos')}>
-                        <div className={cx('btn-toggle')}>
-                            <span>video</span>
-                            <span>liked</span>
-                        </div>
-                        <div className={cx('video-list')}>
-                            <div className={cx('video')}>
-                                <Video
-                                    dataVideo={'https://files.fullstack.edu.vn/f8-tiktok/videos/548-635be861c0068.mp4'}
-                                    isIcon
-                                    onMouseOver={(e) => console.log(e)}
-                                />
+                                        <div className={cx('btn')}>
+                                            <BtnToggleFollow dataUser={dataUser} />
+                                        </div>
+                                    </div>
+                                    <div className={cx('more-action')}>
+                                        <span>
+                                            <ShareIcon />
+                                        </span>
+                                        <span>
+                                            <DotsIcon />
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className={cx('count-user')}>
+                                    <b>{dataUser.followings_count}</b>
+                                    <span>Đang Follow</span>
+                                    <b>{dataUser.followers_count}</b>
+                                    <span>Follower</span>
+                                    <b>{dataUser.likes_count}</b>
+                                    <span>Thích</span>
+                                </div>
+                                <div className={cx('bio-user')}>
+                                    <p>{dataUser.bio === '' ? 'No bio yet' : dataUser.bio}</p>
+                                </div>
                             </div>
-                            <span className={cx('title-video')}>another vlog for you #fy</span>
+
+                            <div className={cx('wrap-videos')}>
+                                <div className={cx('btn-toggle')}>
+                                    <span
+                                        className={cx('btn-video', activeBtn && 'active-btn')}
+                                        onClick={() => setActiveBtn(false)}
+                                    >
+                                        Video
+                                    </span>
+                                    <span
+                                        className={cx('btn-liked', !activeBtn && 'active-btn')}
+                                        onClick={() => setActiveBtn(true)}
+                                    >
+                                        <LockIcon /> Liked
+                                    </span>
+                                    <span className={cx('slider', activeBtn && 'active-slider')}></span>
+                                </div>
+                                {!activeBtn ? (
+                                    <div className={cx('video-container')}>
+                                        {dataUser.videos.map((video, index) => (
+                                            <div className={cx('video-user')} key={index}>
+                                                <video
+                                                    className={cx('video')}
+                                                    src={video.file_url}
+                                                    type={video.meta.file_format}
+                                                    onMouseOver={(e) => {
+                                                        console.log(e);
+                                                        e.target.play();
+                                                    }}
+                                                    muted
+                                                    onMouseOut={(e) => e.target.pause()}
+                                                />
+                                                <span className={cx('title-video')}>
+                                                    <p>{video.description}</p>
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                ) : (
+                                    <div className={cx('private')}>
+                                        <LockIcon className={cx('private-icon')} />
+                                        <h2>This user's liked videos are private</h2>
+                                        <p>
+                                            Videos liked by {''}
+                                            <i>
+                                                <b>{dataUser.nickname}</b>
+                                            </i>{' '}
+                                            are currently hidden
+                                        </p>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                    </>
+                )}
             </div>
         </div>
     );

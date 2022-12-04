@@ -6,29 +6,33 @@ import Button from '~/component/Button';
 import Image from '~/component/Image';
 
 import styles from './SubInfoAvatar.module.scss';
+import { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import BtnToggleFollow from '../BtnToggleFollow';
+import { CheckIcon } from '../Icons';
 const cx = classNames.bind(styles);
 
 function SubInfoAvatar({ data, style1 = false }) {
+    const path = useLocation().pathname;
+    const [isSmall, setIsSmall] = useState(true);
+    useEffect(() => {
+        if (path.indexOf('/@')) {
+            setIsSmall(false);
+        }
+    }, [path]);
+
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', isSmall && 'small')}>
             <div className={cx('header')}>
                 <Image className={cx('logo')} src={data.avatar} alt={data.first_name + data.last_name} />
-                <>
-                    {style1 ? (
-                        <Button outline className={cx('btn')}>
-                            <b> Follow</b>
-                        </Button>
-                    ) : (
-                        <Button primary className={cx('btn')}>
-                            <b> Follow</b>
-                        </Button>
-                    )}
-                </>
+                <div className={cx('btn')}>
+                    <BtnToggleFollow dataUser={data} />
+                </div>
             </div>
             <div className={cx('acc')}>
                 <a href="/" className={cx('nickname')}>
                     <span>
-                        {data.nickname} {data.tick && <FontAwesomeIcon icon={faCheckCircle} className={cx('check')} />}
+                        {data.nickname} {data.tick && <CheckIcon className={cx('check')} />}
                     </span>
                 </a>
                 <br />

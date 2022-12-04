@@ -55,11 +55,9 @@ function Discover() {
             <p className={cx('title')}> Discover </p>
             <div className={cx('discover')}>
                 {data.map((value, index) => (
-                    <div key={index}>
-                        <div className={cx('btn')}>
-                            <span className={cx('icon')}>{value.icon}</span>
-                            <span className={cx('content')}>{value.title}</span>
-                        </div>
+                    <div className={cx('btn')} key={index}>
+                        <span className={cx('icon')}>{value.icon}</span>
+                        <span className={cx('content')}>{value.title}</span>
                     </div>
                 ))}
             </div>

@@ -62,3 +62,27 @@ export const login = async ({ email, password }) => {
         console.log(error);
     }
 };
+export const getAnUser = async (pathName) => {
+    try {
+        const res = await httpRequest.get(`users${pathName}`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const followUser = async (id) => {
+    try {
+        const res = await httpRequest.post(`users/${id}/follow`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};
+export const unFollowUser = async (id) => {
+    try {
+        const res = await httpRequest.post(`users/${id}/unfollow`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

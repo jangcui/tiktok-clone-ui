@@ -1,6 +1,16 @@
 .wrapper {
-    border-top: 1px solid #e3e3e4;
-    border-bottom: 1px solid #e3e3e4;
+    position: relative;
+    &::before {
+        content: '';
+        position: absolute;
+        height: 1px;
+        left: 8px;
+        right: 8px;
+        background: rgba(22, 24, 35, 0.12);
+
+        transform: scaleY(0.5);
+        top: 0;
+    }
 }
 .label {
     font-size: 1.4rem;

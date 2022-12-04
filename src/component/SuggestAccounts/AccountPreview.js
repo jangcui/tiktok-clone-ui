@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import Tippy from '@tippyjs/react/headless';
-
+import { Link } from 'react-router-dom';
 import Image from '~/component/Image';
 import classNames from 'classnames/bind';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,32 +13,27 @@ const cx = classNames.bind(styles);
 function AccountPreview({ data }) {
     const renderPreview = (props) => {
         return (
-            <div tabIndex="-1" {...props}>
-                <PopperWrapper>
+            <PopperWrapper>
+                <div tabIndex="1" {...props}>
                     <SubInfoAvatar data={data} />
-                </PopperWrapper>
-            </div>
+                </div>
+            </PopperWrapper>
         );
     };
     return (
-        <Tippy
-            interactive
-            delay={[800, 300]}
-            offset={[-20, 0]}
-            placement="bottom"
-            zIndex={99999}
-            render={renderPreview}
-        >
-            <div className={cx('account-item')}>
-                <Image className={cx('avatar')} src={data.avatar} alt="kk" />
-                <div className={cx('info')}>
-                    <p className={cx('nickname')}>
-                        <strong>{data.nickname}</strong>
-                        {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
-                    </p>
-                    <p className={cx('name')}>{data.first_name + ' ' + data.last_name}</p>
+        <Tippy interactive delay={[800, 300]} offset={[-20, 0]} placement="bottom" zIndex={999} render={renderPreview}>
+            <Link to={`/@${data.nickname}`}>
+                <div className={cx('account-item')}>
+                    <Image className={cx('avatar')} src={data.avatar} alt="kk" />
+                    <div className={cx('info')}>
+                        <p className={cx('nickname')}>
+                            <strong>{data.nickname}</strong>
+                            {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                        </p>
+                        <p className={cx('name')}>{data.first_name + ' ' + data.last_name}</p>
+                    </div>
                 </div>
-            </div>
+            </Link>
         </Tippy>
     );
 }

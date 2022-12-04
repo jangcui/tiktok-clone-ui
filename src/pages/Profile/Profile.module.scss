@@ -3,19 +3,23 @@
     height: 100vh;
 }
 
-.header {
-}
 .container {
     display: flex;
     height: 100%;
     justify-content: flex-start;
+
+    .loading {
+        position: fixed;
+        top: 20%;
+        right: 50%;
+    }
 }
 .sidebar {
     width: 240px;
-    background-color: rgb(255, 0, 170);
 }
 .content {
     margin-top: 60px;
+    margin-left: 20px;
     flex: 1 1;
     display: flex;
     flex-direction: column;
@@ -46,22 +50,46 @@
         margin-left: 20px;
 
         .nickname {
+            display: flex;
+            align-items: center;
             font-weight: 700;
             font-size: 20px;
             line-height: 38px;
+            cursor: pointer;
+
+            .check {
+                margin-left: 6px;
+            }
         }
         .name {
-            font-weight: 600;
+            font-weight: 200;
             font-size: 18px;
             line-height: 20px;
             margin-bottom: 20px;
-            font-weight: 600;
-            font-size: 18px;
-            line-height: 20px;
-            margin-bottom: 20px;
+            cursor: pointer;
+        }
+        .btn {
+            width: 200px;
         }
     }
-    .btn {
+    .more-action {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 20px 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        span {
+            cursor: pointer;
+            margin-left: 20px;
+            padding: 12px 4px;
+
+            &:hover {
+                opacity: 0.8;
+            }
+        }
     }
     .count-user {
         display: flex;
@@ -84,5 +112,111 @@
 
 .wrap-videos {
     flex: 1;
-    background-color: brown;
+
+    .btn-toggle {
+        position: relative;
+        display: flex;
+        align-items: center;
+        width: 460px;
+        justify-content: flex-start;
+        height: 44px;
+        margin-bottom: 8px;
+
+        .btn-video,
+        .btn-liked {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            width: 230px;
+            text-align: center;
+            cursor: pointer;
+            border-bottom: 1px solid #16182314;
+            font-weight: 600;
+            font-size: 18px;
+            line-height: 25px;
+        }
+
+        .slider {
+            position: absolute;
+            left: 0;
+            width: 230px;
+            height: 1.5px;
+            border-radius: 6px;
+            background-color: #161823;
+            bottom: 0;
+            transition: transform 0.45s ease 0s;
+            transform: translateX(0);
+        }
+        .active-btn {
+            color: #16182380;
+        }
+        .btn-liked:hover ~ .slider,
+        .active-slider {
+            transform: translateX(230px);
+        }
+        .btn-video:hover ~ .slider {
+            transform: translateX(0);
+        }
+    }
+
+    .video-container {
+        display: grid;
+        gap: 24px 16px;
+        grid-template-columns: repeat(auto-fill, minmax(184px, 1fr));
+
+        .video-user {
+            display: flex;
+            flex-direction: column;
+
+            .video {
+                max-width: 200px;
+                max-height: 260px;
+                object-fit: cover;
+                border-radius: 4px;
+                cursor: pointer;
+            }
+
+            span {
+                padding: 2px 4px 0px;
+                height: 20px;
+                overflow: hidden;
+                box-sizing: content-box;
+            }
+
+            p {
+                font-size: 16px;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                color: #161823;
+                pointer-events: none;
+            }
+        }
+    }
+    .private {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+
+        .private-icon {
+            width: 90px;
+            height: 90px;
+            fill-opacity: 0.34;
+            margin-bottom: 30px;
+        }
+        h2 {
+            font-size: 24px;
+            line-height: 28px;
+            color: #161823;
+            margin-top: 24px;
+        }
+        p {
+            line-height: 22px;
+            color: #161823bf;
+            margin-top: 8px;
+        }
+    }
 }
