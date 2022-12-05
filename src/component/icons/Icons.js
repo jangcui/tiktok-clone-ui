@@ -811,7 +811,7 @@ export const DotsIcon = ({ height = '20px', width = '20px', className }) => (
         ></path>
     </svg>
 );
-export const CheckIcon = ({ height = '20px', width = '20px', className }) => (
+export const CheckIcon = ({ height = '16px', width = '16px', className }) => (
     <svg
         className={className}
         width={width}

@@ -112,17 +112,24 @@ function Profile() {
                                     <div className={cx('video-container')}>
                                         {dataUser.videos.map((video, index) => (
                                             <div className={cx('video-user')} key={index}>
-                                                <video
-                                                    className={cx('video')}
-                                                    src={video.file_url}
-                                                    type={video.meta.file_format}
-                                                    onMouseOver={(e) => {
-                                                        console.log(e);
-                                                        e.target.play();
-                                                    }}
-                                                    muted
-                                                    onMouseOut={(e) => e.target.pause()}
-                                                />
+                                                <div className={cx('video')}>
+                                                    <video
+                                                        src={video.file_url}
+                                                        type={video.meta.file_format}
+                                                        onMouseOver={(e) => {
+                                                            e.target.play();
+                                                        }}
+                                                        muted
+                                                        onMouseOut={(e) => {
+                                                            e.target.pause();
+                                                        }}
+                                                    />
+                                                    {/* <Image
+                                                            className={cx('thump-img')}
+                                                            src={video.thumb_url}
+                                                            alt="video_user"
+                                                        /> */}
+                                                </div>
                                                 <span className={cx('title-video')}>
                                                     <p>{video.description}</p>
                                                 </span>

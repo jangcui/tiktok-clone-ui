@@ -170,13 +170,26 @@
             flex-direction: column;
 
             .video {
-                max-width: 200px;
+                position: relative;
+                max-width: 220px;
                 max-height: 260px;
-                object-fit: cover;
-                border-radius: 4px;
-                cursor: pointer;
+                video {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: cover;
+                    border-radius: 4px;
+                    cursor: pointer;
+                }
             }
-
+            // .thump-img {
+            //     position: absolute;
+            //     width: 100%;
+            //     height: 100%;
+            //     object-fit: cover;
+            //     border-radius: 4px;
+            //     cursor: pointer;
+            //     right: 0;
+            // }
             span {
                 padding: 2px 4px 0px;
                 height: 20px;

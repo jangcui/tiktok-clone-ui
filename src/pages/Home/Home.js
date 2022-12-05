@@ -15,6 +15,7 @@ import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import Loading from '~/component/Loading';
+import BtnToggleFollow from '~/component/BtnToggleFollow';
 
 const cx = classNames.bind(styles);
 
@@ -44,7 +45,7 @@ function Home() {
                 next={handleNextRender}
                 hasMore={true}
                 loader={
-                    <div>
+                    <div className={cx('loading')}>
                         <Loading />
                     </div>
                 }
@@ -103,9 +104,9 @@ function Home() {
                                 />
                             </div>
                         </div>
-                        <Button outline className={cx('btn-outline')}>
-                            Follow
-                        </Button>
+                        <div className={cx('btn')}>
+                            <BtnToggleFollow dataUser={data} />
+                        </div>
                     </div>
                 ))}
             </InfiniteScroll>

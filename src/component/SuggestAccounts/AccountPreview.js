@@ -8,6 +8,7 @@ import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import SubInfoAvatar from '~/component/SubInfoUser';
 import styles from './SuggestAccounts.module.scss';
 import { Wrapper as PopperWrapper } from '../Popper';
+import { CheckIcon } from '../Icons';
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
@@ -28,7 +29,7 @@ function AccountPreview({ data }) {
                     <div className={cx('info')}>
                         <p className={cx('nickname')}>
                             <strong>{data.nickname}</strong>
-                            {data.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                            {data.tick && <CheckIcon className={cx('check')} CheckIcon />}
                         </p>
                         <p className={cx('name')}>{data.first_name + ' ' + data.last_name}</p>
                     </div>

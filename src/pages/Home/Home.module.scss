@@ -8,6 +8,9 @@
     margin-left: 16px;
     padding: 24px 0;
 }
+.loading {
+    flex: 1;
+}
 
 .container {
     position: relative;
@@ -56,21 +59,18 @@
 .content {
     margin-left: 12px;
     display: flex;
-    width: 100%;
+    width: 70%;
     justify-content: flex-start;
     flex-direction: column;
     flex-wrap: wrap;
 }
-.btn-outline {
+.btn {
+    position: absolute;
+    right: 12px;
+    top: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 28px;
-    min-width: 88px;
-    margin: 8px 4px 0 0;
-    font-size: 16px;
-    line-height: 22px;
-    font-weight: 600;
 }
 
 .video-wrapper {

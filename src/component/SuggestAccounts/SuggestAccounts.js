@@ -12,7 +12,6 @@ function SuggestAccounts({ label, data = [] }) {
             {data.map((account, index) => (
                 <AccountPreview data={account} key={index} />
             ))}
-            <p className={cx('more-btn')}>see all</p>
         </div>
     );
 }
