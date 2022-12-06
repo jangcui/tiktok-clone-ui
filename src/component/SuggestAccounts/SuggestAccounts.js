@@ -5,13 +5,11 @@ import AccountPreview from './AccountPreview';
 
 const cx = classNames.bind(styles);
 
-function SuggestAccounts({ label, data = [] }) {
+function SuggestAccounts({ label, data = [], isFollowed }) {
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>
-            {data.map((account, index) => (
-                <AccountPreview data={account} key={index} />
-            ))}
+            {data.map((account, index) => !data.is_followed && <AccountPreview data={account} key={index} />)}
         </div>
     );
 }

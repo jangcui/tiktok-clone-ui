@@ -86,3 +86,11 @@ export const unFollowUser = async (id) => {
         console.log(error);
     }
 };
+export const getFollowList = async (page) => {
+    try {
+        const res = await httpRequest.get(`me/followings?page=${page}`);
+        return res.data;
+    } catch (error) {
+        console.log(error);
+    }
+};

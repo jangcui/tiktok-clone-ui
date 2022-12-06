@@ -1,6 +1,6 @@
 import Tippy from '@tippyjs/react';
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import Button from '../Button';
 import ModalAuth from '../ModalAuth';
 import styles from './BtnToggleFollow.module.scss';
@@ -8,11 +8,14 @@ import * as Services from '~/Services/Services';
 import UserContext from '../UserContext';
 const cx = classNames.bind(styles);
 
-function BtnToggleFollow({ dataUser }) {
+function BtnToggleFollow({ dataUser, className }) {
     const user = UserContext();
     const [isFollow, setIsFollow] = useState(dataUser.is_followed ? true : false);
     const [openModal, setOpenModal] = useState(false);
 
+    const classes = cx('wrapper', {
+        [className]: className,
+    });
     const handleFollow = () => {
         !!user ? setOpenModal(false) : setOpenModal(true);
         if (dataUser && !!user) {
@@ -41,7 +44,7 @@ function BtnToggleFollow({ dataUser }) {
         }
     };
     return (
-        <div className={cx('wrapper')}>
+        <div className={classes}>
             <ModalAuth isOpen={openModal} onClose={() => setOpenModal(false)} />
             {isFollow ? (
                 <Tippy offset={[0, 15]} placement="left" content="Un follow" allowHTML=" false" delay={[500, 200]}>

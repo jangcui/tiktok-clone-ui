@@ -13,13 +13,17 @@ const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
     const renderPreview = (props) => {
-        return (
-            <PopperWrapper>
-                <div tabIndex="1" {...props}>
-                    <SubInfoAvatar data={data} />
-                </div>
-            </PopperWrapper>
-        );
+        if (!data.is_followed) {
+            return (
+                <PopperWrapper>
+                    <div tabIndex="1" {...props}>
+                        <SubInfoAvatar data={data} />
+                    </div>
+                </PopperWrapper>
+            );
+        } else {
+            return '';
+        }
     };
     return (
         <Tippy interactive delay={[800, 300]} offset={[-20, 0]} placement="bottom" zIndex={999} render={renderPreview}>

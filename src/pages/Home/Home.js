@@ -37,7 +37,6 @@ function Home() {
             })
             .catch((error) => console.log(error));
     }, [page]);
-    console.log(page);
     return (
         <div className={cx('wrapper')}>
             <InfiniteScroll
