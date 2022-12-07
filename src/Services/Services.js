@@ -18,7 +18,7 @@ export const getSuggested = async ({ page, perPage }) => {
         const res = await httpRequest.get('users/suggested', {
             params: {
                 page,
-                per_page: perPage,
+                perPage,
             },
         });
         return res.data;
@@ -86,9 +86,21 @@ export const unFollowUser = async (id) => {
         console.log(error);
     }
 };
-export const getFollowList = async (page) => {
+// export const getFollowList = async (page) => {
+//     try {
+//         const res = await httpRequest.get(`me/followings?page=${page}`);
+//         return res.data;
+//     } catch (error) {
+//         console.log(error);
+//     }
+// };
+export const getFollowList = async ({ page }) => {
     try {
-        const res = await httpRequest.get(`me/followings?page=${page}`);
+        const res = await httpRequest.get('me/followings', {
+            params: {
+                page,
+            },
+        });
         return res.data;
     } catch (error) {
         console.log(error);

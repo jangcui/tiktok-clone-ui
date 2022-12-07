@@ -22,9 +22,11 @@ import styles from './Sidebar.module.scss';
 
 const cx = classNames.bind(styles);
 
+const RANDOM = () => Math.floor(Math.random() * 20 + 1); ///====> vì api chỉ có tất cả 20 trang thui
+
 function Sidebar({ small = false }) {
     const user = UserContext();
-    const [page, setPage] = useState(Math.floor(Math.random() * 20 + 1)); ///====> vì api chỉ có tất cả 20 trang thui
+    const [page, setPage] = useState(RANDOM);
     const [isSeeAll, setIsSeeAll] = useState(true);
     const [openModal, setOpenModal] = useState(false);
     const [dataUser, setDataUser] = useState([]);
@@ -36,11 +38,11 @@ function Sidebar({ small = false }) {
         }
         Services.getSuggested({ page: page, perPage: 10 })
             .then((data) => {
-                if (data < 10) {
-                    setPage(page + 1);
-                } else {
-                    setDataUser((preUser) => [...preUser, ...data]);
-                }
+                // if (data < 10) {
+                //     setPage(page + 1);
+                // } else {
+                setDataUser((preUser) => [...preUser, ...data]);
+                // }
             })
             .catch((error) => console.log(error));
     }, [page]);
@@ -48,7 +50,9 @@ function Sidebar({ small = false }) {
     useEffect(() => {
         Services.getFollowList(1)
             .then((data) => {
-                setDataFollow((preUser) => [...preUser, ...data]);
+                if (data) {
+                    setDataFollow((preUser) => [...preUser, ...data]);
+                }
             })
             .catch((error) => console.log(error));
     }, []);
@@ -80,7 +84,8 @@ function Sidebar({ small = false }) {
                 <SuggestAccounts
                     isFollowed={false}
                     label="Suggested accounts"
-                    data={isSeeAll ? dataUser.slice(0, 5) : dataUser}
+                    // data={isSeeAll ? dataUser.slice(0, 5) : dataUser}
+                    data={dataUser}
                 />
                 <p className={cx('more-btn')} onClick={() => setIsSeeAll(!isSeeAll)}>
                     {isSeeAll ? ' See all' : 'See less'}
