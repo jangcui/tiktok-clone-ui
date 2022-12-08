@@ -13,6 +13,16 @@ export const getVideoList = async ({ type = 'for-you', page }) => {
         console.log('lỡi');
     }
 };
+
+export const getUserVideo = async (id) => {
+    try {
+        const res = await httpRequest.get(`users/${id}/videos`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
+
 export const getSuggested = async ({ page, perPage }) => {
     try {
         const res = await httpRequest.get('users/suggested', {

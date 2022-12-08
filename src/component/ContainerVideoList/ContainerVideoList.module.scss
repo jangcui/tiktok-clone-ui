@@ -74,9 +74,10 @@
         line-height: 25px;
         display: inline-block;
         margin-right: 6px;
-    }
-    a:hover h3 {
-        text-decoration: underline;
+        cursor: pointer;
+        &:hover {
+            text-decoration: underline;
+        }
     }
 
     h4 {

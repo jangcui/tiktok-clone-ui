@@ -1,15 +1,15 @@
-import 'tippy.js/dist/tippy.css';
 import classNames from 'classnames/bind';
+import 'tippy.js/dist/tippy.css';
 import Image from '~/component/Image';
 
-import styles from './SubInfoAvatar.module.scss';
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import BtnToggleFollow from '../BtnToggleFollow';
 import { CheckIcon } from '../Icons';
+import styles from './SubInfoAvatar.module.scss';
 const cx = classNames.bind(styles);
 
-function SubInfoAvatar({ data, style1 = false }) {
+function SubInfoAvatar({ data, style = false }) {
     const path = useLocation().pathname;
     const [isSmall, setIsSmall] = useState(true);
     useEffect(() => {
@@ -38,7 +38,7 @@ function SubInfoAvatar({ data, style1 = false }) {
                 <b>{data.likes_count}</b>
                 <span>Likes</span>
             </div>
-            {style1 && <p className={cx('user-card')}>{data.bio}</p>}
+            {style && <p className={cx('user-card')}>{data.bio}</p>}
         </div>
     );
 }

@@ -49,7 +49,7 @@ function BtnToggleFollow({ dataUser, className }) {
             {isFollow ? (
                 <Tippy offset={[0, 15]} placement="left" content="Un follow" allowHTML=" false" delay={[500, 200]}>
                     <span onClick={handleUnFollow}>
-                        <Button text outline className={cx('btn')}>
+                        <Button text outline className={cx('btn-following')}>
                             <b> Following</b>
                         </Button>
                     </span>

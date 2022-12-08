@@ -15,11 +15,10 @@ const cx = classNames.bind(styles);
 function Profile() {
     const [activeBtn, setActiveBtn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
+
     const pathName = useLocation();
     const nickName = pathName.pathname;
-
     const [data, setData] = useState({});
-
     const dataUser = useDebounce(data, 800);
 
     useEffect(() => {

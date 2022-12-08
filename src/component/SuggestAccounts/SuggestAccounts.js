@@ -5,7 +5,7 @@ import AccountPreview from './AccountPreview';
 
 const cx = classNames.bind(styles);
 
-function SuggestAccounts({ label, data = [], isFollowed }) {
+function SuggestAccounts({ label, data = [] }) {
     return (
         <div className={cx('wrapper')}>
             <p className={cx('label')}>{label}</p>

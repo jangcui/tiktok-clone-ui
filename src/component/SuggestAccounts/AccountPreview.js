@@ -3,8 +3,7 @@ import Tippy from '@tippyjs/react/headless';
 import { Link } from 'react-router-dom';
 import Image from '~/component/Image';
 import classNames from 'classnames/bind';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+
 import SubInfoAvatar from '~/component/SubInfoUser';
 import styles from './SuggestAccounts.module.scss';
 import { Wrapper as PopperWrapper } from '../Popper';

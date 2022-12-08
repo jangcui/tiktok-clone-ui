@@ -1,7 +1,7 @@
 import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react/headless';
 import IconVideo from '~/pages/Home/IconVideo';
 import BtnToggleFollow from '../BtnToggleFollow';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
@@ -10,6 +10,7 @@ import Image from '../Image';
 import Video from '../Video';
 import classNames from 'classnames/bind';
 import styles from './ContainerVideoList.module.scss';
+import { Link } from 'react-router-dom';
 
 const cx = classNames.bind(styles);
 
@@ -20,27 +21,30 @@ function ContainerVideoList({ data }) {
             {data &&
                 data.map((data, index) => (
                     <div className={cx('container')} key={index}>
-                        <Tippy
-                            interactive
-                            delay={[800, 500]}
-                            placement="bottom-start"
-                            render={(props) => {
-                                return (
-                                    <div tabIndex="-1" {...props}>
+                        <div className={cx('wrap-avatar')}>
+                            <Tippy
+                                interactive
+                                delay={[800, 500]}
+                                placement="bottom-start"
+                                zIndex={999}
+                                render={(props) => {
+                                    return (
                                         <PopperWrapper>
-                                            <SubInfoAvatar data={data.user} style1 />
+                                            <div {...props}>
+                                                <SubInfoAvatar data={data.user} style />
+                                            </div>
                                         </PopperWrapper>
-                                    </div>
-                                );
-                            }}
-                        >
-                            <div className={cx('wrap-avatar')}>
-                                <Image className={cx('avatar')} src={data.user.avatar} alt="lele" />
-                            </div>
-                        </Tippy>
+                                    );
+                                }}
+                            >
+                                <Link to={`/@${data.user.nickname}`}>
+                                    <Image className={cx('avatar')} src={data.user.avatar} alt="lele" />
+                                </Link>
+                            </Tippy>
+                        </div>
                         <div className={cx('content')}>
                             <div className={cx('nickname')}>
-                                <a href=".">
+                                <Link to={`/@${data.user.nickname}`}>
                                     <h3>
                                         {data.user.nickname}
                                         {data.user.tick && (
@@ -48,7 +52,7 @@ function ContainerVideoList({ data }) {
                                         )}
                                     </h3>
                                     <h4>{data.user.first_name + ' ' + data.user.last_name}</h4>
-                                </a>
+                                </Link>
                             </div>
                             <div className={cx('status')}>
                                 <span>
@@ -72,9 +76,11 @@ function ContainerVideoList({ data }) {
                                 />
                             </div>
                         </div>
-                        <div className={cx('btn')}>
-                            <BtnToggleFollow dataUser={data} />
-                        </div>
+                        {!data.user.is_followed && (
+                            <div className={cx('btn')}>
+                                <BtnToggleFollow dataUser={data} />
+                            </div>
+                        )}
                     </div>
                 ))}
         </div>
