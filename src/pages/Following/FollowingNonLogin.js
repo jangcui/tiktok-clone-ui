@@ -1,12 +1,12 @@
-import InfiniteScroll from 'react-infinite-scroll-component';
-import Loading from '~/component/Loading';
-import { CheckIcon } from '~/component/Icons';
-import * as Services from '~/Services/Services';
 import classNames from 'classnames/bind';
-import styles from './Following.module.scss';
 import { useEffect, useState } from 'react';
-import { useDebounce } from '~/hook';
+import InfiniteScroll from 'react-infinite-scroll-component';
 import BtnToggleFollow from '~/component/BtnToggleFollow';
+import { CheckIcon } from '~/component/Icons';
+import Loading from '~/component/Loading';
+import { useDebounce } from '~/hook';
+import * as Services from '~/Services/Services';
+import styles from './Following.module.scss';
 const cx = classNames.bind(styles);
 
 const RANDOM = () => Math.floor(Math.random() * 20 + 1); ///====> vì api chỉ có tất cả 20 trang thui
@@ -28,7 +28,6 @@ function FollowingNonLogin() {
             })
             .catch((error) => console.log(error));
     }, [page]);
-    console.log(deBoundUser);
     return (
         <>
             <InfiniteScroll
@@ -46,7 +45,18 @@ function FollowingNonLogin() {
                         (user, index) =>
                             !user.is_followed && (
                                 <div className={cx('content')} key={index}>
-                                    <video className={cx('video')} src={user.popular_video.file_url} />
+                                    <video
+                                        className={cx('video')}
+                                        src={user.popular_video.file_url}
+                                        onMouseOver={(e) => {
+                                            e.target.play();
+                                        }}
+                                        loop
+                                        onMouseOut={(e) => {
+                                            e.target.pause();
+                                        }}
+                                        muted
+                                    />
                                     <div className={cx('user')}>
                                         <h5>{user.first_name + ' ' + user.last_name} </h5>
                                         <span>

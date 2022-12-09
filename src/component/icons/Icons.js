@@ -584,7 +584,7 @@ export const QRIcon = ({ height = '22px', width = '22px', className }) => (
         ></path>
     </svg>
 );
-export const UserIcon = ({ height = '22px', width = '22px', className }) => (
+export const UserIcon = ({ height = '18px', width = '18px', className }) => (
     <svg
         className={className}
         width={width}
@@ -826,6 +826,23 @@ export const CheckIcon = ({ height = '16px', width = '16px', className }) => (
             clipRule="evenodd"
             d="M37.1213 15.8787C38.2929 17.0503 38.2929 18.9497 37.1213 20.1213L23.6213 33.6213C22.4497 34.7929 20.5503 34.7929 19.3787 33.6213L10.8787 25.1213C9.70711 23.9497 9.70711 22.0503 10.8787 20.8787C12.0503 19.7071 13.9497 19.7071 15.1213 20.8787L21.5 27.2574L32.8787 15.8787C34.0503 14.7071 35.9497 14.7071 37.1213 15.8787Z"
             fill="white"
+        ></path>
+    </svg>
+);
+export const EditIcon = ({ height = '18px', width = '18px', className }) => (
+    <svg
+        className={className}
+        width={width}
+        height={height}
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 20 20"
+    >
+        <path
+            fill="currentColor"
+            fillRule="evenodd"
+            d="M15.393 2.226a.842.842 0 00-1.17.02L8.142 8.33a.842.842 0 00-.247.595v2.34c0 .464.377.841.842.841h2.183a.842.842 0 00.596-.246l6.237-6.238a.843.843 0 00-.02-1.211l-2.34-2.184zM9.58 9.273l5.26-5.26 1.107 1.033-5.374 5.375h-.993V9.273zM9.58 2c.232 0 .42.189.42.421v.842a.421.421 0 01-.42.421H4.526a.842.842 0 00-.842.842v10.948c0 .465.377.842.842.842h10.947a.842.842 0 00.842-.842V10.42c0-.232.189-.421.421-.421h.842c.233 0 .422.188.422.421v5.053A2.526 2.526 0 0115.473 18H4.526A2.526 2.526 0 012 15.474V4.526A2.526 2.526 0 014.526 2H9.58z"
+            clipRule="evenodd"
         ></path>
     </svg>
 );

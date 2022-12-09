@@ -1,7 +1,7 @@
 import classNames from 'classnames/bind';
 import { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { CheckIcon, DotsIcon, LockIcon, ShareIcon } from '~/component/Icons';
+import { CheckIcon, DotsIcon, EditIcon, LockIcon, ShareIcon, UserIcon } from '~/component/Icons';
 import Image from '~/component/Image';
 import * as Services from '~/Services/Services';
 import Header from '~/layouts/components/Header';
@@ -10,9 +10,14 @@ import styles from './Profile.module.scss';
 import { useDebounce } from '~/hook';
 import Loading from '~/component/Loading';
 import BtnToggleFollow from '~/component/BtnToggleFollow';
+import UserContext from '~/component/UserContext';
+import Button from '~/component/Button';
 const cx = classNames.bind(styles);
 
 function Profile() {
+    const user = UserContext();
+
+    const [isEditBtn, setIsEditBtn] = useState(false);
     const [activeBtn, setActiveBtn] = useState(false);
     const [isLoading, setIsLoading] = useState(true);
 
@@ -27,6 +32,14 @@ function Profile() {
         }
     }, [dataUser]);
     useEffect(() => {
+        if (nickName === `/@${user.nickname}`) {
+            setIsEditBtn(true);
+        } else {
+            setIsEditBtn(false);
+        }
+    }, [nickName]);
+    console.log(data);
+    useEffect(() => {
         setIsLoading(true);
         Services.getAnUser(nickName)
             .then((data) => {
@@ -39,7 +52,6 @@ function Profile() {
                 console.log(error);
             });
     }, [nickName]);
-    console.log(dataUser);
     return (
         <div className={cx('wrapper')}>
             <div className={cx('header')}>
@@ -66,16 +78,24 @@ function Profile() {
                                         <h4 className={cx('name')}>{dataUser.first_name + ' ' + dataUser.last_name}</h4>
 
                                         <div className={cx('btn')}>
-                                            <BtnToggleFollow dataUser={dataUser} />
+                                            {isEditBtn ? (
+                                                <Button text normal>
+                                                    <EditIcon /> <b>Edit Profile</b>
+                                                </Button>
+                                            ) : (
+                                                <BtnToggleFollow dataUser={dataUser} />
+                                            )}
                                         </div>
                                     </div>
                                     <div className={cx('more-action')}>
                                         <span>
                                             <ShareIcon />
                                         </span>
-                                        <span>
-                                            <DotsIcon />
-                                        </span>
+                                        {!isEditBtn && (
+                                            <span>
+                                                <DotsIcon />
+                                            </span>
+                                        )}
                                     </div>
                                 </div>
                                 <div className={cx('count-user')}>
@@ -103,49 +123,70 @@ function Profile() {
                                         className={cx('btn-liked', !activeBtn && 'active-btn')}
                                         onClick={() => setActiveBtn(true)}
                                     >
-                                        <LockIcon /> Liked
+                                        {!isEditBtn ? <LockIcon /> : <UserIcon />} Liked
                                     </span>
                                     <span className={cx('slider', activeBtn && 'active-slider')}></span>
                                 </div>
                                 {!activeBtn ? (
-                                    <div className={cx('video-container')}>
-                                        {dataUser.videos.map((video, index) => (
-                                            <div className={cx('video-user')} key={index}>
-                                                <div className={cx('video')}>
-                                                    <video
-                                                        src={video.file_url}
-                                                        type={video.meta.file_format}
-                                                        onMouseOver={(e) => {
-                                                            e.target.play();
-                                                        }}
-                                                        muted
-                                                        onMouseOut={(e) => {
-                                                            e.target.pause();
-                                                        }}
-                                                    />
-                                                    {/* <Image
-                                                            className={cx('thump-img')}
-                                                            src={video.thumb_url}
-                                                            alt="video_user"
-                                                        /> */}
-                                                </div>
-                                                <span className={cx('title-video')}>
-                                                    <p>{video.description}</p>
-                                                </span>
+                                    <>
+                                        {dataUser.videos.length !== 0 ? (
+                                            <div className={cx('video-container')}>
+                                                {dataUser.videos.map((video, index) => (
+                                                    <div className={cx('video-user')} key={index}>
+                                                        <div className={cx('video')}>
+                                                            <video
+                                                                src={video.file_url}
+                                                                type={video.meta.file_format}
+                                                                onMouseOver={(e) => {
+                                                                    e.target.play();
+                                                                }}
+                                                                muted
+                                                                onMouseOut={(e) => {
+                                                                    e.target.pause();
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <span className={cx('title-video')}>
+                                                            <p>{video.description}</p>
+                                                        </span>
+                                                    </div>
+                                                ))}
                                             </div>
-                                        ))}
-                                    </div>
+                                        ) : (
+                                            <div className={cx('no-video')}>
+                                                <UserIcon className={cx('icon')} />
+                                                <h2>{!isEditBtn ? 'No content' : 'Upload your first video'}</h2>
+                                                <p>
+                                                    {!isEditBtn
+                                                        ? 'This user has not published any videos.'
+                                                        : 'Your videos will appear here'}
+                                                </p>
+                                            </div>
+                                        )}
+                                    </>
                                 ) : (
                                     <div className={cx('private')}>
-                                        <LockIcon className={cx('private-icon')} />
-                                        <h2>This user's liked videos are private</h2>
-                                        <p>
-                                            Videos liked by {''}
-                                            <i>
-                                                <b>{dataUser.nickname}</b>
-                                            </i>{' '}
-                                            are currently hidden
-                                        </p>
+                                        {!isEditBtn ? (
+                                            <LockIcon className={cx('icon')} />
+                                        ) : (
+                                            <UserIcon className={cx('icon')} />
+                                        )}
+                                        <h2>
+                                            {!isEditBtn
+                                                ? `This user's liked videos are private`
+                                                : 'No liked videos yet'}
+                                        </h2>
+                                        {!isEditBtn ? (
+                                            <p>
+                                                Videos liked by {''}
+                                                <i>
+                                                    <b>{dataUser.nickname}</b>
+                                                </i>{' '}
+                                                are currently hidden
+                                            </p>
+                                        ) : (
+                                            <p>Videos you liked will appear here</p>
+                                        )}
                                     </div>
                                 )}
                             </div>

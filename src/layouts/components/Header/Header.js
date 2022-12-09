@@ -107,6 +107,10 @@ function Header({ small }) {
                 handleLogout();
                 console.log(123);
                 break;
+            case '/@profile':
+                window.location.pathname = `@${user.nickname}`;
+                break;
+
             default:
         }
     };

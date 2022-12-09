@@ -15,33 +15,35 @@ const cx = classNames.bind(styles);
 function Following() {
     const user = UserContext();
 
-    const [dataFollow, setDataFollow] = useState([]);
-    const deBoundFollowing = useDebounce(dataFollow, 800);
+    const [data, setData] = useState([]);
+    const deBounceData = useDebounce(data, 800);
 
     useEffect(() => {
         Services.getVideoList({ type: 'following' })
             .then((data) => {
                 if (data) {
-                    setDataFollow((preUser) => [...preUser, ...data]);
+                    setData((preUser) => [...preUser, ...data]);
                 }
             })
             .catch((error) => console.log(error));
     }, []);
-    console.log(dataFollow.length);
+    console.log(data.length);
     return (
         <div className={cx('wrapper')}>
-            {!user || dataFollow.length === 0 ? (
+            {!user || data.length === 0 ? (
                 <FollowingNonLogin />
             ) : (
                 <InfiniteScroll
-                    dataLength={dataFollow.length}
+                    dataLength={data.length}
                     endMessage={
                         <p className={cx('message')}>
                             <b>There are no more videos to show.</b>
                         </p>
                     }
                 >
-                    <ContainerVideoList data={deBoundFollowing} />
+                    {deBounceData.map((data, index) => (
+                        <ContainerVideoList data={data} key={index} />
+                    ))}
                 </InfiniteScroll>
             )}
         </div>

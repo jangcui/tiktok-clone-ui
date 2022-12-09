@@ -12,6 +12,7 @@
     padding-left: var(--default-layout-horizontal-spacer);
     margin-top: var(--default-layout-header-height);
     min-height: 1000px;
+    overflow-x: hidden;
 }
 
 .wrap-btn {

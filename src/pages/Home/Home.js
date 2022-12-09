@@ -39,7 +39,9 @@ function Home() {
                     </div>
                 }
             >
-                <ContainerVideoList data={dataHome} />
+                {dataHome.map(
+                    (data, index) => !data.user.is_followed && <ContainerVideoList data={data} key={index} />,
+                )}
             </InfiniteScroll>
         </div>
     );

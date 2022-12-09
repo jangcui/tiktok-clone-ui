@@ -69,8 +69,12 @@
             cursor: pointer;
         }
         .btn {
-            width: 200px;
-            height: 40px;
+            max-width: 200px;
+            max-height: 40px;
+
+            b {
+                margin-left: 4px;
+            }
         }
     }
     .more-action {
@@ -106,8 +110,6 @@
         span {
             margin-right: 14px;
         }
-    }
-    .bio-user {
     }
 }
 
@@ -208,14 +210,15 @@
             }
         }
     }
-    .private {
+    .private,
+    .no-video {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
         height: 100%;
 
-        .private-icon {
+        .icon {
             width: 90px;
             height: 90px;
             fill-opacity: 0.34;
