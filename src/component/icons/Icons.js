@@ -141,11 +141,11 @@ export const LiveActiveIcon = ({ width = '3.2rem', height = '3.2rem', className 
         ></path>
     </svg>
 );
-export const LikeIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const LikeIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
-        fontSize={fontSize}
+        height={height}
         aria-hidden="true"
         focusable="false"
         data-prefix="far"
@@ -160,11 +160,11 @@ export const LikeIcon = ({ fontSize = '20px', width = '24px', className }) => (
         ></path>
     </svg>
 );
-export const CommentIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const CommentIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
-        fontSize={fontSize}
+        height={height}
         aria-hidden="true"
         focusable="false"
         data-prefix="far"
@@ -179,11 +179,11 @@ export const CommentIcon = ({ fontSize = '20px', width = '24px', className }) =>
         ></path>
     </svg>
 );
-export const ShareIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const ShareIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
-        fontSize={fontSize}
+        height={height}
         aria-hidden="true"
         focusable="false"
         data-prefix="far"
@@ -198,11 +198,12 @@ export const ShareIcon = ({ fontSize = '20px', width = '24px', className }) => (
         ></path>
     </svg>
 );
-export const VolumeIcon = ({ fontSize = '20px', width = '24px', className }) => (
+/////////////////videos
+export const VolumeIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
-        fontSize={fontSize}
+        height={height}
         viewBox="0 0 48 48"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -214,7 +215,7 @@ export const VolumeIcon = ({ fontSize = '20px', width = '24px', className }) => 
         ></path>
     </svg>
 );
-export const PlayIcon = ({ height = '20px', width = '24px', className }) => (
+export const PlayIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
@@ -233,7 +234,7 @@ export const PlayIcon = ({ height = '20px', width = '24px', className }) => (
         ></path>
     </svg>
 );
-export const PauseIcon = ({ height = '20px', width = '24px', className }) => (
+export const PauseIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
@@ -252,7 +253,7 @@ export const PauseIcon = ({ height = '20px', width = '24px', className }) => (
         ></path>
     </svg>
 );
-export const FlagIcon = ({ height = '16', width = '18px', className }) => (
+export const FlagIcon = ({ height = '16px', width = '18px', className }) => (
     <svg
         className={className}
         width={width}
@@ -271,11 +272,11 @@ export const FlagIcon = ({ height = '16', width = '18px', className }) => (
         ></path>
     </svg>
 );
-export const MuteIcon = ({ fontSize = '20px', width = '24px', className }) => (
+export const MuteIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}
-        fontSize={fontSize}
+        height={height}
         viewBox="0 0 48 48"
         fill="currentColor"
         xmlns="http://www.w3.org/2000/svg"
@@ -285,6 +286,57 @@ export const MuteIcon = ({ fontSize = '20px', width = '24px', className }) => (
             clipRule="evenodd"
             d="M25 10.8685C25 8.47242 22.3296 7.04325 20.3359 8.37236L10.3944 15H6C4.34315 15 3 16.3431 3 18V30C3 31.6568 4.34314 33 6 33H10.3944L20.3359 39.6276C22.3296 40.9567 25 39.5276 25 37.1315V10.8685ZM29.2929 18.1213L35.1716 24L29.2929 29.8787C28.9024 30.2692 28.9024 30.9024 29.2929 31.2929L30.7071 32.7071C31.0976 33.0976 31.7308 33.0976 32.1213 32.7071L38 26.8284L43.8787 32.7071C44.2692 33.0976 44.9024 33.0976 45.2929 32.7071L46.7071 31.2929C47.0976 30.9024 47.0976 30.2692 46.7071 29.8787L40.8284 24L46.7071 18.1213C47.0976 17.7308 47.0976 17.0976 46.7071 16.7071L45.2929 15.2929C44.9024 14.9024 44.2692 14.9024 43.8787 15.2929L38 21.1716L32.1213 15.2929C31.7308 14.9024 31.0976 14.9024 30.7071 15.2929L29.2929 16.7071C28.9024 17.0976 28.9024 17.7308 29.2929 18.1213Z"
         ></path>
+    </svg>
+);
+export const UpIcon = ({ height = '24px', width = '24px', className }) => (
+    <svg
+        className={className}
+        width={width}
+        height={height}
+        viewBox="0 0 48 48"
+        fill="#fff"
+        xmlns="http://www.w3.org/2000/svg"
+    >
+        <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M34.4142 22.5858L18.1213 6.29289C17.7308 5.90237 17.0976 5.90237 16.7071 6.29289L15.2929 7.70711C14.9024 8.09763 14.9024 8.7308 15.2929 9.12132L30.1716 24L15.2929 38.8787C14.9024 39.2692 14.9024 39.9024 15.2929 40.2929L16.7071 41.7071C17.0976 42.0976 17.7308 42.0976 18.1213 41.7071L34.4142 25.4142C35.1953 24.6332 35.1953 23.3668 34.4142 22.5858Z"
+        ></path>
+    </svg>
+);
+export const LogoIcon = ({ height = '24px', width = '24px', className }) => (
+    <svg
+        className={className}
+        width={width}
+        height={height}
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 48 48"
+        data-e2e="browse-logo"
+    >
+        <g fillRule="evenodd" clipPath="url(#logo-icon_svg__a)" clipRule="evenodd">
+            <path
+                fill="#000"
+                d="M0 36c0 6.627 5.373 12 12 12h24c6.627 0 12-5.373 12-12V12c0-6.628-5.373-12-12-12H12C5.373 0 0 5.372 0 12v24z"
+            ></path>
+            <path
+                fill="#25F4EE"
+                d="M30.636 6.288A9.23 9.23 0 0130.35 4h-6.97v26.133c0 3.014-2.056 5.457-5.062 5.457-3.006 0-5.443-2.443-5.443-5.456 0-3.014 2.437-5.457 5.443-5.457.6 0 .797.098 1.337.278v-7.051c-.562-.079-.754-.12-1.337-.12C11.515 17.785 6 23.315 6 30.135c0 6.82 5.515 12.349 12.318 12.349 6.708 0 12.357-5.375 12.51-12.062V17.049c2.528 1.733 5.395 2.746 8.689 2.746V13.19c-4.275 0-7.866-2.933-8.88-6.902z"
+            ></path>
+            <path
+                fill="#fff"
+                d="M33.12 8.77a9.23 9.23 0 01-.287-2.288h-6.971v26.134c0 3.014-2.055 5.456-5.061 5.456s-5.443-2.442-5.443-5.456a5.45 5.45 0 015.443-5.456c.6 0 .797.097 1.337.277v-7.05c-.562-.08-.754-.12-1.337-.12-6.803 0-12.318 5.529-12.318 12.349S13.998 44.965 20.8 44.965c6.707 0 12.357-5.374 12.51-12.062V19.531c2.528 1.733 5.395 2.747 8.689 2.747v-6.606c-4.275 0-7.866-2.933-8.88-6.901z"
+            ></path>
+            <path
+                fill="#FE2C55"
+                d="M15.92 35.033a5.446 5.446 0 01-.562-2.416c0-3.014 2.437-5.457 5.443-5.457.523 0 .739.074 1.143.212l.194.066v-7.051l-.21-.03c-.411-.059-.623-.09-1.127-.09-.386 0-.769.018-1.146.053v4.635l-.194-.066c-.404-.138-.62-.212-1.143-.212-3.006 0-5.443 2.443-5.443 5.457a5.46 5.46 0 003.045 4.9zm-4.972 4.997a12.29 12.29 0 009.853 4.935c6.707 0 12.357-5.374 12.51-12.061V19.532c2.528 1.733 5.395 2.746 8.689 2.746v-6.605a9.2 9.2 0 01-2.483-.341v4.463c-3.294 0-6.161-1.013-8.69-2.746v13.372c-.152 6.688-5.802 12.062-12.509 12.062-2.763 0-5.314-.912-7.37-2.453zm23.455-28.401a9.206 9.206 0 01-3.715-5.146h2.145a9.155 9.155 0 001.57 5.146z"
+            ></path>
+        </g>
+        <defs>
+            <clipPath id="logo-icon_svg__a">
+                <rect width="48" height="48" fill="#fff" rx="10.5"></rect>
+            </clipPath>
+        </defs>
     </svg>
 );
 
@@ -795,7 +847,7 @@ export const LockIcon = ({ height = '18px', width = '18px', className }) => (
         ></path>
     </svg>
 );
-export const DotsIcon = ({ height = '20px', width = '20px', className }) => (
+export const DotsIcon = ({ height = '24px', width = '24px', className }) => (
     <svg
         className={className}
         width={width}

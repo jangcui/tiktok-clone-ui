@@ -7,8 +7,9 @@
     &:hover .play,
     &:hover .pause,
     &:hover .sound,
-    &:hover .wrap-slider {
-        visibility: unset;
+    &:hover .controls {
+        opacity: 1;
+        transition: opacity 0.3s linear 0s;
         transition: 0.2s;
     }
 }
@@ -41,7 +42,7 @@
     line-height: 22px;
     color: var(--white);
     transition: opacity 0.3s ease 0s;
-    visibility: hidden;
+    opacity: 0;
 
     svg {
         font-size: 14px;
@@ -57,7 +58,7 @@
     left: 30px;
     color: var(--white);
     z-index: 10;
-    visibility: hidden;
+    opacity: 0;
 }
 
 .sound {
@@ -67,10 +68,10 @@
     right: 30px;
     color: var(--white);
     z-index: 10;
-    visibility: hidden;
+    opacity: 0;
 }
 .mute {
-    visibility: unset;
+    opacity: 1;
 }
 .wrap-volume {
     position: absolute;
@@ -87,14 +88,16 @@
     transform: rotate(-90deg);
     cursor: pointer;
 
-    visibility: hidden;
+    opacity: 0;
 
     &:hover {
-        visibility: unset;
+        opacity: 1;
+        transition: opacity 0.3s linear 0s;
     }
 }
 .sound:hover + .wrap-volume {
-    visibility: unset;
+    opacity: 1;
+    transition: opacity 0.3s linear 0s;
 }
 
 .slider-volume {
@@ -115,15 +118,16 @@
     background-color: rgb(28, 22, 22);
 }
 
-.wrap-slider {
+.controls {
     position: absolute;
     left: 0;
     bottom: 20px;
     display: flex;
+    height: 24px;
     align-items: center;
     width: 100%;
     padding-inline: 12px;
-    visibility: hidden;
+    opacity: 0;
     transition: 0.2s;
 
     &:hover .process {

@@ -5,7 +5,7 @@ import { useEffect, useState, useRef } from 'react';
 import { useInView } from 'react-intersection-observer';
 const cx = classNames.bind(styles);
 
-function Video({ dataVideo, typeVideo }) {
+function Video({ dataVideo, typeVideo, onClick = () => {} }) {
     const [isPlaying, setIsPlaying] = useState(true);
     const [isMute, setIsMute] = useState(true);
     const [volume, setVolume] = useState(localStorage.getItem('VOLUME') || 0.5);
@@ -99,6 +99,7 @@ function Video({ dataVideo, typeVideo }) {
                         ref={videoRef}
                         loop
                         onTimeUpdate={handleTimePlay}
+                        onClick={onClick}
                     />
                 </div>
                 <p className={cx('flag')}>
@@ -137,7 +138,7 @@ function Video({ dataVideo, typeVideo }) {
                     />
                 </div>
                 {durationVideo >= 10 && (
-                    <div className={cx('wrap-slider')}>
+                    <div className={cx('controls')}>
                         <div className={cx('seek-slider')} onClick={handleSeek}>
                             <span className={cx('progress')} ref={seekVideoRef}>
                                 <span className={cx('process')}></span>

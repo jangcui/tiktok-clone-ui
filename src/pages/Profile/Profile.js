@@ -31,14 +31,17 @@ function Profile() {
             setIsLoading(false);
         }
     }, [dataUser]);
+
     useEffect(() => {
-        if (nickName === `/@${user.nickname}`) {
-            setIsEditBtn(true);
-        } else {
-            setIsEditBtn(false);
+        if (user) {
+            if (nickName === `/@${user.nickname}`) {
+                setIsEditBtn(true);
+            } else {
+                setIsEditBtn(false);
+            }
         }
     }, [nickName]);
-    console.log(data);
+
     useEffect(() => {
         setIsLoading(true);
         Services.getAnUser(nickName)

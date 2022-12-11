@@ -122,6 +122,8 @@ const MENU_SIGN_IN = [
         ],
     },
 ];
+const portal = document.getElementById('modal-auth');
+
 function ModalAuth({ isOpen, onClose }) {
     const [items, setItems] = useState(MENU_SIGN_UP);
     const [isNav, setIsNav] = useState(false);
@@ -148,7 +150,6 @@ function ModalAuth({ isOpen, onClose }) {
     const handleBack = () => {
         isNav ? setItems(MENU_SIGN_IN) : setItems(MENU_SIGN_UP);
     };
-
     return ReactDom.createPortal(
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -201,7 +202,7 @@ function ModalAuth({ isOpen, onClose }) {
             </div>
             <div />
         </div>,
-        document.getElementById('modal'),
+        portal,
     );
 }
 

@@ -1,0 +1,240 @@
+.wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    background-color: brown;
+    z-index: 1234;
+    overflow: hidden;
+}
+.container {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+    height: 100%;
+    background-color: rgb(50, 42, 165);
+}
+
+.wrap-video {
+    position: relative;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    flex: 1 0 600px;
+    max-width: 100%;
+    background: rgb(0, 0, 0);
+    overflow: hidden;
+
+    .img {
+        width: 100%;
+        height: 100%;
+        filter: blur(6px);
+        object-fit: fill;
+    }
+
+    .icon {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 40px;
+        height: 40px;
+        color: #fff;
+        background: #54545480;
+        border-radius: 50%;
+        z-index: 999;
+        transition: opacity 0.3s linear 0s;
+        cursor: pointer;
+
+        &:hover {
+            opacity: 0.7;
+        }
+    }
+    .icon-logo {
+        position: absolute;
+        left: 80px;
+        top: 20px;
+        border-radius: 50%;
+        overflow: hidden;
+        cursor: unset;
+    }
+    .icon-flag {
+        width: unset;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        border-radius: 100px;
+        top: 20px;
+        right: 20px;
+
+        p {
+            margin-left: 4px;
+        }
+    }
+    .icon-mute,
+    .icon-sound {
+        bottom: 30px;
+        right: 20px;
+    }
+    .icon-close {
+        left: 20px;
+        top: 20px;
+    }
+    .icon-up {
+        right: 20px;
+        top: calc(50% - 48px);
+        transform: rotate(270deg);
+    }
+    .icon-down {
+        right: 20px;
+        top: calc(50% + 8px);
+        transform: rotate(90deg);
+    }
+    .icon-play {
+        top: 50%;
+        width: unset;
+        background: unset;
+        height: unset;
+    }
+    .volume-control {
+        position: absolute;
+        width: 28px;
+        height: 100px;
+        bottom: 90px;
+        right: 24px;
+        background: #54545480;
+        cursor: pointer;
+        border-radius: 32px;
+
+        .volume-progress {
+            width: 4px;
+            height: 82px;
+            background-color: #ffffff57;
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            bottom: 8px;
+        }
+
+        .volume-process {
+            width: 4px;
+            height: 82px;
+            background-color: #ffffff57;
+            position: absolute;
+            left: 12px;
+            top: 8px;
+            bottom: 8px;
+        }
+
+        .volume-dot {
+            width: 16px;
+            height: 16px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            position: absolute;
+            left: 6px;
+            bottom: 6px;
+        }
+
+        &:hover {
+            background-color: #25252599;
+        }
+    }
+}
+
+.content-video {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    padding: 0px 80px;
+    height: 100%;
+
+    .main-video {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .video {
+            height: 100%;
+            width: 100%;
+        }
+    }
+
+    .controls {
+        position: absolute;
+        left: 0;
+        bottom: 20px;
+        display: flex;
+        height: 24px;
+        align-items: center;
+        width: 100%;
+        padding-inline: 40px;
+        transition: opacity 0.3s linear 0s;
+        cursor: pointer;
+
+        &:hover .process {
+            opacity: 1;
+        }
+
+        &:hover .seek-slider,
+        &:hover .seek-slider,
+        &:hover .progress {
+            height: 6px;
+        }
+    }
+
+    .seek-slider {
+        position: relative;
+        width: 100%;
+        height: 3px;
+        border-radius: 3px;
+        flex: 1 1 auto;
+        background-color: rgba(255, 228, 196);
+    }
+
+    .progress {
+        position: absolute;
+        color: #00fffff9;
+        text-align: center;
+        height: 3px;
+        width: 3px;
+        background-color: #00e3e3;
+        border-radius: 3px;
+        font-size: 4px;
+    }
+
+    .process {
+        position: absolute;
+        top: -5px;
+        right: -10px;
+        border-radius: 50%;
+        width: 16px;
+        height: 16px;
+
+        background-color: rgba(11, 155, 165);
+        opacity: 0;
+    }
+
+    .seek-timer {
+        max-width: 70px;
+        margin-inline-start: 20px;
+        font-size: 16px;
+        color: var(--white);
+        text-align: end;
+        white-space: nowrap;
+    }
+}
+
+.wrap-comment {
+    flex: 0 0 544px;
+    width: 544px;
+    display: flex;
+    flex-direction: column;
+    padding: 32px 0px 0px;
+}

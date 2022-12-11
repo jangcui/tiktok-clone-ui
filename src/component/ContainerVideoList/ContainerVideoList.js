@@ -7,6 +7,7 @@ import BtnToggleFollow from '../BtnToggleFollow';
 import { Wrapper as PopperWrapper } from '~/component/Popper';
 import SubInfoAvatar from '../../component/SubInfoUser';
 import Image from '../Image';
+import * as Services from '~/Services/Services';
 import Video from '../Video';
 import classNames from 'classnames/bind';
 import styles from './ContainerVideoList.module.scss';
@@ -15,7 +16,17 @@ import { Link } from 'react-router-dom';
 const cx = classNames.bind(styles);
 
 function ContainerVideoList({ data }) {
+    const handleClick = () => {
+        Services.getAVideo(data.uuid)
+            .then((data) => {
+                console.log(data);
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    };
     console.log(data);
+    console.log(data.uuid);
     return (
         <div className={cx('container')}>
             <div className={cx('wrap-avatar')}>
@@ -63,7 +74,7 @@ function ContainerVideoList({ data }) {
                     </a>
                 </div>
                 <div className={cx('video-wrapper')}>
-                    <Video dataVideo={data.file_url} typeVideo={data.meta.file_format} />
+                    <Video dataVideo={data.file_url} typeVideo={data.meta.file_format} onClick={handleClick}></Video>
                     <IconVideo
                         likeCount={data.likes_count}
                         commentsCount={data.comments_count}

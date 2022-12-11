@@ -13,6 +13,14 @@ export const getVideoList = async ({ type = 'for-you', page }) => {
         console.log('lỡi');
     }
 };
+export const getAVideo = async (uuid) => {
+    try {
+        const res = await httpRequest.get(`videos/${uuid}`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
 
 export const getUserVideo = async (id) => {
     try {
@@ -96,14 +104,7 @@ export const unFollowUser = async (id) => {
         console.log(error);
     }
 };
-// export const getFollowList = async (page) => {
-//     try {
-//         const res = await httpRequest.get(`me/followings?page=${page}`);
-//         return res.data;
-//     } catch (error) {
-//         console.log(error);
-//     }
-// };
+
 export const getFollowList = async ({ page }) => {
     try {
         const res = await httpRequest.get('me/followings', {
