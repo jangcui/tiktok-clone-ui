@@ -898,4 +898,5 @@ export const EditIcon = ({ height = '18px', width = '18px', className }) => (
         ></path>
     </svg>
 );
+
 ///////////////////////////

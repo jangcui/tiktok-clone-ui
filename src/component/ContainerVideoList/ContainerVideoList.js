@@ -12,6 +12,7 @@ import Video from '../Video';
 import classNames from 'classnames/bind';
 import styles from './ContainerVideoList.module.scss';
 import { Link } from 'react-router-dom';
+import { CheckIcon } from '../Icons';
 
 const cx = classNames.bind(styles);
 
@@ -55,7 +56,7 @@ function ContainerVideoList({ data }) {
                     <Link to={`/@${data.user.nickname}`}>
                         <h3>
                             {data.user.nickname}
-                            {data.user.tick && <FontAwesomeIcon className={cx('check')} icon={faCheckCircle} />}
+                            {data.user.tick && <CheckIcon className={cx('check')} />}
                         </h3>
                         <h4>{data.user.first_name + ' ' + data.user.last_name}</h4>
                     </Link>

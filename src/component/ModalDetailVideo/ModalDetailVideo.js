@@ -3,6 +3,9 @@ import classNames from 'classnames/bind';
 import styles from './ModalDetailVideo.module.scss';
 import Image from '../Image';
 import { CloseIcon, DownIcon, FlagIcon, LogoIcon, MuteIcon, PauseIcon, PlayIcon, UpIcon, VolumeIcon } from '../Icons';
+import Button from '../Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeartMusicCameraBolt, faMusic } from '@fortawesome/free-solid-svg-icons';
 const cx = classNames.bind(styles);
 
 const portal = document.getElementById('modal-detail-video');
@@ -84,7 +87,33 @@ function ModalDetailVideo({ data, isOpen, onClose }) {
                 </div>
 
                 <div className={cx('wrap-comment')}>
-                    <div className={cx('info-user')}></div>
+                    <div className={cx('user')}>
+                        <Image
+                            className={cx('avatar')}
+                            src="https://files.fullstack.edu.vn/f8-tiktok/users/11/630266fd71515.jpg"
+                            alt="hehehe"
+                        />
+                        <div className={cx('info')}>
+                            <span>namsssssssssssssse</span>
+                            <p>nick ddddddddddddddddddddname</p>
+                        </div>
+                        <Button outline> follow</Button>
+                    </div>
+
+                    <div className={cx('main-content')}>
+                        <div className={cx('des')}>
+                            Có muộn trend quá hông ta? Cám ơn team anh @Tuấn Ngọc Võ rất nhìuuu. IB @Quỳnh Thi
+                            #thanhmeo18 #makeyoulook
+                        </div>
+                        <div className={cx('music')}>
+                            <span>
+                                <FontAwesomeIcon icon={faMusic} />
+                            </span>
+                            <h4>Made You Look - Meghan Trainor</h4>
+                        </div>
+                        <div className={cx('action')}></div>
+                        <div className={cx('link')}></div>
+                    </div>
 
                     <div className={cx('view-comment')}></div>
                     <div className={cx('post-comment')}></div>
