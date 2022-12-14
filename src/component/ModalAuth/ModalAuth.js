@@ -132,10 +132,13 @@ function ModalAuth({ isOpen, onClose }) {
         isNav ? setItems(MENU_SIGN_IN) : setItems(MENU_SIGN_UP);
     }, [isNav]);
 
-    if (!isOpen) {
-        return null;
-    }
-
+    useEffect(() => {
+        if (isOpen) {
+            document.body.classList.add('hidden');
+        } else {
+            document.body.classList.remove('hidden');
+        }
+    }, [isOpen]);
     const handleItems = (item) => {
         switch (item.type) {
             case 'account':
@@ -150,6 +153,9 @@ function ModalAuth({ isOpen, onClose }) {
     const handleBack = () => {
         isNav ? setItems(MENU_SIGN_IN) : setItems(MENU_SIGN_UP);
     };
+    if (!isOpen) {
+        return null;
+    }
     return ReactDom.createPortal(
         <div className={cx('wrapper')}>
             <div className={cx('container')}>

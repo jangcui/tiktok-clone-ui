@@ -117,3 +117,11 @@ export const getFollowList = async ({ page }) => {
         console.log(error);
     }
 };
+export const getCommentsList = async (uuid) => {
+    try {
+        const res = await httpRequest.get(`videos/${uuid}/comments`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};

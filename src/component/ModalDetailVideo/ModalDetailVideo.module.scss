@@ -7,8 +7,15 @@
     height: 100vh;
     left: 0;
     background-color: #fff;
-    z-index: 1234;
-    overflow: hidden;
+    z-index: 999;
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 12px;
 }
 .container {
     display: flex;
@@ -235,7 +242,7 @@
     width: 544px;
     display: flex;
     flex-direction: column;
-    padding: 32px 0px 0px;
+    padding-top: 20px;
 
     .user {
         position: relative;
@@ -247,13 +254,6 @@
         justify-content: space-between;
         flex: 0 0 82px;
 
-        .avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 12px;
-        }
         .info {
             flex: 1;
             cursor: pointer;
@@ -280,6 +280,7 @@
         display: flex;
         flex-direction: column;
         flex-shrink: 0;
+        margin-bottom: 16px;
 
         .des {
             font-size: 16px;
@@ -301,8 +302,183 @@
             }
         }
         .action {
+            position: relative;
+            padding: 16px 0px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+
+            .btn-like {
+                display: flex;
+                align-items: center;
+
+                strong {
+                    color: #161823bf;
+                    font-size: 12px;
+                    line-height: 17px;
+                    text-align: center;
+                    margin-right: 10px;
+                }
+                .like-icon {
+                    width: 32px;
+                    height: 32px;
+                    font-size: 0px;
+                    border-radius: 50%;
+                    transition: all 200ms ease-in-out 0s;
+                    background-color: #1618230f;
+                    padding: 6px;
+                    margin-right: 4px;
+                    cursor: pointer;
+                }
+                .comment-icon {
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    width: 32px;
+                    height: 32px;
+                    border-radius: 50%;
+                    transition: all 200ms ease-in-out 0s;
+                    background-color: #1618230f;
+                    padding: 6px;
+                    margin-right: 4px;
+                }
+            }
+            .btn-share {
+                display: flex;
+                align-items: center;
+
+                span {
+                    margin-left: 6px;
+                    cursor: pointer;
+                }
+            }
         }
         .link {
+            color: #161823bf;
+            font-size: 14px;
+            line-height: 20px;
+            display: flex;
+            margin-top: 16px;
+            border: 1px solid #1618231f;
+            border-radius: 8px;
+            overflow: hidden;
+
+            p {
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+                padding: 7px 0px 5px 12px;
+                background-color: #1618230f;
+            }
+
+            span {
+                background: none #1618230f;
+                color: #161823;
+                font-weight: 700;
+                flex: 0 0 auto;
+                cursor: pointer;
+                padding: 7px 18px;
+
+                &:hover {
+                    background-color: #16182308;
+                }
+            }
+        }
+    }
+    .view-comment {
+        position: relative;
+        width: 100%;
+        padding: 24px 32px;
+        background-color: rgb(248, 248, 248);
+        border-top: 1px solid #16182333;
+        border-bottom: 1px solid #16182333;
+        overflow: hidden auto;
+        flex-grow: 1;
+
+        .block-user {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            margin-bottom: 16px;
+            position: relative;
+        }
+        .main-comment {
+            flex: 1 1 auto;
+        }
+        .name-user {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 25px;
+        }
+        .comment-text {
+            font-size: 16px;
+            line-height: 22px;
+            white-space: pre-line;
+            word-break: break-word;
+            margin-bottom: 6px;
+        }
+        .sub-comment {
+            color: rgba(22, 24, 35, 0.5);
+            font-size: 14px;
+            line-height: 20px;
+        }
+        .like-comment {
+            margin-left: 18px;
+            padding-right: 2px;
+            width: 24px;
+            flex: 0 0 24px;
+            padding-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .wrap-like {
+                color: #16182380;
+                font-size: 12px;
+                line-height: 17px;
+                width: 20px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                cursor: pointer;
+            }
+        }
+    }
+    .post-comment {
+        flex: 0 0 auto;
+        background-color: rgb(255, 255, 255);
+        margin: 0px 30px;
+        padding: 21px 0px;
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+        }
+        .wrap-input {
+            position: relative;
+            display: flex;
+            flex: 1;
+            align-items: flex-end;
+            border-radius: 8px;
+            height: 100%;
+            margin-right: 12px;
+
+            input {
+                flex: 1 1;
+                background-color: #1618230f;
+                border-radius: 8px;
+                height: 100%;
+                border: 1px solid #00000000;
+                overflow: hidden;
+                padding: 0px 8px;
+                white-space: pre-line;
+                word-break: break-word;
+            }
+        }
+        .btn-post {
+            color: var(--primary);
         }
     }
 }

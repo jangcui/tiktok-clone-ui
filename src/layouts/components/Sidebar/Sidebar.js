@@ -56,6 +56,7 @@ function Sidebar({ small = false }) {
             })
             .catch((error) => console.log(error));
     }, []);
+
     return (
         <aside className={cx('wrapper', small && 'small')}>
             <ModalAuth isOpen={openModal} onClose={() => setOpenModal(false)} />

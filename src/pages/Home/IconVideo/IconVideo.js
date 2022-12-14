@@ -15,6 +15,7 @@ import {
     EmailIcon,
     LineIcon,
     PinTeRestIcon,
+    LikeIconFull,
 } from '~/component/Icons';
 
 import classNames from 'classnames/bind';
@@ -106,7 +107,7 @@ function IconVideo({ likeCount, commentsCount, shareCount }) {
         <div className={cx('wrapper')}>
             <button className={cx('btn-icons')}>
                 <span className={cx('icons')}>
-                    <LikeIcon />
+                    <LikeIconFull />
                 </span>
             </button>
             <strong>{likeCount}</strong>

@@ -39,6 +39,7 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
     const handlePlay = () => {
         setIsPlaying((e) => !e);
     };
+
     useEffect(() => {
         isMute ? (videoRef.current.volume = volume) : (videoRef.current.volume = 0);
     }, [volume, isMute]);
@@ -58,8 +59,8 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
             localStorage.setItem('VOLUME', value);
         }
     };
-    const handleTimePlay = () => {
-        setCurrentVideo(videoRef.current.currentTime);
+    const handleTimePlay = (e) => {
+        setCurrentVideo(e.target.currentTime);
         const percent = (currentTimeVideo / durationVideo) * 100;
         if (durationVideo > 10) {
             seekVideoRef.current.style.width = percent + '%';
@@ -69,10 +70,9 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
         let parent = seekVideoRef.current.parentNode;
         let seekWidth = e.nativeEvent.offsetX;
         let progressWidth = parent.offsetWidth;
-
-        const pr = (seekWidth * durationVideo) / progressWidth;
-        videoRef.current.currentTime = pr;
-        setCurrentVideo(pr);
+        const ratio = (seekWidth * durationVideo) / progressWidth;
+        videoRef.current.currentTime = ratio;
+        setCurrentVideo(ratio);
     };
 
     const FormatTime = ({ time }) => {
@@ -88,8 +88,8 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
     };
 
     return (
-        <div className={cx('wrapper')} ref={ref}>
-            <div className={cx('container')}>
+        <div className={cx('wrapper')}>
+            <div className={cx('container')} ref={ref}>
                 <div className={cx('wrap-video')}>
                     <video
                         className={cx('video')}
@@ -102,55 +102,58 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
                         onClick={onClick}
                     />
                 </div>
-                <p className={cx('flag')}>
-                    <FlagIcon />
-                    Báo cáo
-                </p>
 
-                {isPlaying ? (
-                    <div onClick={handlePlay}>
-                        <PauseIcon className={cx('pause')} />
+                <div className={cx('wrap-icon')}>
+                    <p className={cx('flag')}>
+                        <FlagIcon />
+                        Báo cáo
+                    </p>
+
+                    {isPlaying ? (
+                        <div onClick={handlePlay}>
+                            <PauseIcon className={cx('pause')} />
+                        </div>
+                    ) : (
+                        <div onClick={handlePlay}>
+                            <PlayIcon className={cx('play')} />
+                        </div>
+                    )}
+                    {isMute ? (
+                        <div onClick={handleMute} className={cx('sound')}>
+                            <VolumeIcon />
+                        </div>
+                    ) : (
+                        <div onClick={handleMute} className={cx('sound', 'mute')}>
+                            <MuteIcon />
+                        </div>
+                    )}
+                    <div className={cx('wrap-volume')}>
+                        <input
+                            className={cx('slider-volume')}
+                            type="range"
+                            min={0}
+                            max={1}
+                            step="0.05"
+                            ref={volumeRef}
+                            value={volume}
+                            onChange={handleVolume}
+                        />
                     </div>
-                ) : (
-                    <div onClick={handlePlay}>
-                        <PlayIcon className={cx('play')} />
-                    </div>
-                )}
-                {!isMute ? (
-                    <div onClick={handleMute} className={cx('sound', 'mute')}>
-                        <MuteIcon />
-                    </div>
-                ) : (
-                    <div onClick={handleMute} className={cx('sound')}>
-                        <VolumeIcon />
-                    </div>
-                )}
-                <div className={cx('wrap-volume')}>
-                    <input
-                        className={cx('slider-volume')}
-                        type="range"
-                        min={0}
-                        max={1}
-                        step="0.05"
-                        ref={volumeRef}
-                        value={volume}
-                        onChange={handleVolume}
-                    />
+                    {durationVideo >= 10 && (
+                        <div className={cx('controls')}>
+                            <div className={cx('seek-slider')} onClick={handleSeek}>
+                                <span className={cx('progress')} ref={seekVideoRef}>
+                                    <span className={cx('process')}></span>
+                                </span>
+                            </div>
+
+                            <div className={cx('seek-timer')}>
+                                <FormatTime time={currentTimeVideo} /> /
+                                <FormatTime time={durationVideo} />
+                            </div>
+                        </div>
+                    )}
                 </div>
-                {durationVideo >= 10 && (
-                    <div className={cx('controls')}>
-                        <div className={cx('seek-slider')} onClick={handleSeek}>
-                            <span className={cx('progress')} ref={seekVideoRef}>
-                                <span className={cx('process')}></span>
-                            </span>
-                        </div>
-
-                        <div className={cx('seek-timer')}>
-                            <FormatTime time={currentTimeVideo} /> /
-                            <FormatTime time={durationVideo} />
-                        </div>
-                    </div>
-                )}
             </div>
         </div>
     );

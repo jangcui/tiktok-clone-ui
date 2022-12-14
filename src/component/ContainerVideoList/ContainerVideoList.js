@@ -13,11 +13,31 @@ import classNames from 'classnames/bind';
 import styles from './ContainerVideoList.module.scss';
 import { Link } from 'react-router-dom';
 import { CheckIcon } from '../Icons';
+import ModalDetailVideo from '../ModalDetailVideo/ModalDetailVideo';
+import { useEffect, useState } from 'react';
+import UserContext from '../UserContext';
 
 const cx = classNames.bind(styles);
 
 function ContainerVideoList({ data }) {
+    const user = UserContext();
+
+    const [openVideo, setOpenVideo] = useState(false);
+
+    useEffect(() => {
+        if (openVideo) {
+            window.history.pushState({}, '', `/video/${data.uuid}`);
+        } else {
+            window.history.pushState({}, '', `/`);
+        }
+    }, [openVideo, data]);
     const handleClick = () => {
+        if (user) {
+            setOpenVideo(true);
+        } else {
+            setOpenVideo(false);
+        }
+
         Services.getAVideo(data.uuid)
             .then((data) => {
                 console.log(data);
@@ -26,10 +46,10 @@ function ContainerVideoList({ data }) {
                 console.log(err);
             });
     };
-    console.log(data);
-    console.log(data.uuid);
+
     return (
         <div className={cx('container')}>
+            <ModalDetailVideo data={data} isOpen={openVideo} onClose={() => setOpenVideo(false)} />
             <div className={cx('wrap-avatar')}>
                 <Tippy
                     interactive
@@ -75,7 +95,7 @@ function ContainerVideoList({ data }) {
                     </a>
                 </div>
                 <div className={cx('video-wrapper')}>
-                    <Video dataVideo={data.file_url} typeVideo={data.meta.file_format} onClick={handleClick}></Video>
+                    <Video dataVideo={data.file_url} typeVideo={data.meta.file_format} onClick={handleClick} />
                     <IconVideo
                         likeCount={data.likes_count}
                         commentsCount={data.comments_count}
