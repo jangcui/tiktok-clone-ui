@@ -18,26 +18,28 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
 
     const { ref, inView } = useInView({
         threshold: 0.8,
-        delay: 600,
+        delay: 700,
     });
 
     useEffect(() => {
-        setDurationVideo(videoRef.current.duration);
-        if (inView) {
-            if (isPlaying) {
+        if (isPlaying) {
+            if (inView) {
                 videoRef.current.play();
             } else {
                 videoRef.current.pause();
+                videoRef.current.currentTime = 0;
             }
         } else {
             videoRef.current.pause();
-            videoRef.current.currentTime = 0;
         }
+        setDurationVideo(videoRef.current.duration);
         // inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
     }, [isPlaying, currentTimeVideo, inView]);
-
+    useEffect(() => {
+        inView ? setIsPlaying(true) : setIsPlaying(false);
+    }, [inView]);
     const handlePlay = () => {
-        setIsPlaying((e) => !e);
+        setIsPlaying(!isPlaying);
     };
 
     useEffect(() => {
@@ -88,9 +90,9 @@ function Video({ dataVideo, typeVideo, onClick = () => {} }) {
     };
 
     return (
-        <div className={cx('wrapper')}>
-            <div className={cx('container')} ref={ref}>
-                <div className={cx('wrap-video')}>
+        <div className={cx('wrapper')} ref={ref}>
+            <div className={cx('container')}>
+                <div className={cx('wrap-video')} onClick={() => setIsPlaying(false)}>
                     <video
                         className={cx('video')}
                         tabIndex="2"

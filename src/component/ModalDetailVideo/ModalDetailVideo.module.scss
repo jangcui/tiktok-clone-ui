@@ -16,6 +16,11 @@
     border-radius: 50%;
     object-fit: cover;
     margin-right: 12px;
+    cursor: pointer;
+
+    &:hover ~ .main-comment span {
+        text-decoration: underline;
+    }
 }
 .container {
     display: flex;
@@ -106,6 +111,11 @@
         width: unset;
         background: unset;
         height: unset;
+        cursor: unset;
+
+        &:hover {
+            opacity: 1;
+        }
     }
     .volume-control {
         position: absolute;

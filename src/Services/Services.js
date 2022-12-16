@@ -13,9 +13,9 @@ export const getVideoList = async ({ type = 'for-you', page }) => {
         console.log('lỡi');
     }
 };
-export const getAVideo = async (uuid) => {
+export const getAVideo = async (id) => {
     try {
-        const res = await httpRequest.get(`videos/${uuid}`);
+        const res = await httpRequest.get(`videos/${id}`);
         return res.data;
     } catch (error) {
         console.log('lỡi');

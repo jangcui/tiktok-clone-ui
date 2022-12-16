@@ -1,4 +1,3 @@
-import { faCheckCircle } from '@fortawesome/free-regular-svg-icons';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Tippy from '@tippyjs/react/headless';
@@ -20,36 +19,51 @@ import UserContext from '../UserContext';
 const cx = classNames.bind(styles);
 
 function ContainerVideoList({ data }) {
-    const user = UserContext();
-
     const [openVideo, setOpenVideo] = useState(false);
+    const [dataVideo, setDataVideo] = useState([]);
 
+    // useEffect(() => {
+    //     if (openVideo) {
+    //         window.history.pushState({}, '', `/video/${data.uuid}`);
+    //     } else {
+    //         window.history.pushState({}, '', `/`);
+    //     }
+    // }, [openVideo, data]);
     useEffect(() => {
-        if (openVideo) {
-            window.history.pushState({}, '', `/video/${data.uuid}`);
-        } else {
-            window.history.pushState({}, '', `/`);
-        }
-    }, [openVideo, data]);
-    const handleClick = () => {
-        if (user) {
-            setOpenVideo(true);
-        } else {
-            setOpenVideo(false);
-        }
-
-        Services.getAVideo(data.uuid)
-            .then((data) => {
-                console.log(data);
+        Services.getAVideo(data.id)
+            .then((video) => {
+                if (video) {
+                    setDataVideo(video);
+                }
             })
             .catch((err) => {
                 console.log(err);
             });
-    };
+    }, [data]);
+    useEffect(() => {
+        if (openVideo) {
+            document.body.classList.add('hidden');
+        } else {
+            document.body.classList.remove('hidden');
+        }
+    }, [openVideo]);
 
+    const handleClick = () => {
+        setOpenVideo(true);
+    };
+    console.log(data);
+    console.log(dataVideo);
     return (
         <div className={cx('container')}>
-            <ModalDetailVideo data={data} isOpen={openVideo} onClose={() => setOpenVideo(false)} />
+            {openVideo && (
+                <ModalDetailVideo
+                    data={dataVideo}
+                    isOpen={openVideo}
+                    onClose={() => {
+                        setOpenVideo(false);
+                    }}
+                />
+            )}
             <div className={cx('wrap-avatar')}>
                 <Tippy
                     interactive
