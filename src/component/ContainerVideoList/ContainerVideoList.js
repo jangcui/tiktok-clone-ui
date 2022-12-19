@@ -1,9 +1,7 @@
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Tippy from '@tippyjs/react/headless';
 import IconVideo from '~/pages/Home/IconVideo';
 import BtnToggleFollow from '../BtnToggleFollow';
-import { Wrapper as PopperWrapper } from '~/component/Popper';
 import SubInfoAvatar from '../../component/SubInfoUser';
 import Image from '../Image';
 import * as Services from '~/Services/Services';
@@ -13,22 +11,28 @@ import styles from './ContainerVideoList.module.scss';
 import { Link } from 'react-router-dom';
 import { CheckIcon } from '../Icons';
 import ModalDetailVideo from '../ModalDetailVideo/ModalDetailVideo';
-import { useEffect, useState } from 'react';
-import UserContext from '../UserContext';
+import { useEffect, useState, useRef } from 'react';
+import { useInView } from 'react-intersection-observer';
 
 const cx = classNames.bind(styles);
 
 function ContainerVideoList({ data }) {
+    const { ref, inView } = useInView({
+        threshold: 0.8,
+    });
+    const [view, setView] = useState(true);
     const [openVideo, setOpenVideo] = useState(false);
     const [dataVideo, setDataVideo] = useState([]);
+    const videoRef = useRef();
 
-    // useEffect(() => {
-    //     if (openVideo) {
-    //         window.history.pushState({}, '', `/video/${data.uuid}`);
-    //     } else {
-    //         window.history.pushState({}, '', `/`);
-    //     }
-    // }, [openVideo, data]);
+    useEffect(() => {
+        if (openVideo) {
+            window.history.pushState({}, '', `/video/${data.uuid}`);
+        } else {
+            window.history.pushState({}, '', `/`);
+        }
+    }, [openVideo, data]);
+
     useEffect(() => {
         Services.getAVideo(data.id)
             .then((video) => {
@@ -41,18 +45,20 @@ function ContainerVideoList({ data }) {
             });
     }, [data]);
     useEffect(() => {
+        setView(inView);
+    }, [inView]);
+    useEffect(() => {
         if (openVideo) {
-            document.body.classList.add('hidden');
+            document.body.classList.add('hidden1');
         } else {
-            document.body.classList.remove('hidden');
+            document.body.classList.remove('hidden1');
         }
     }, [openVideo]);
-
     const handleClick = () => {
         setOpenVideo(true);
+        setView(false);
     };
-    console.log(data);
-    console.log(dataVideo);
+
     return (
         <div className={cx('container')}>
             {openVideo && (
@@ -60,30 +66,18 @@ function ContainerVideoList({ data }) {
                     data={dataVideo}
                     isOpen={openVideo}
                     onClose={() => {
+                        videoRef.current.play();
+                        setView(true);
                         setOpenVideo(false);
                     }}
                 />
             )}
             <div className={cx('wrap-avatar')}>
-                <Tippy
-                    interactive
-                    delay={[800, 500]}
-                    placement="bottom-start"
-                    zIndex={999}
-                    render={(props) => {
-                        return (
-                            <PopperWrapper>
-                                <div {...props}>
-                                    <SubInfoAvatar data={data.user} style />
-                                </div>
-                            </PopperWrapper>
-                        );
-                    }}
-                >
+                <SubInfoAvatar delay={[800, 500]} data={data.user} offset={[-20, 0]} style>
                     <Link to={`/@${data.user.nickname}`}>
                         <Image className={cx('avatar')} src={data.user.avatar} alt="lele" />
                     </Link>
-                </Tippy>
+                </SubInfoAvatar>
             </div>
             <div className={cx('content')}>
                 <div className={cx('nickname')}>
@@ -109,7 +103,17 @@ function ContainerVideoList({ data }) {
                     </a>
                 </div>
                 <div className={cx('video-wrapper')}>
-                    <Video dataVideo={data.file_url} typeVideo={data.meta.file_format} onClick={handleClick} />
+                    <div className={cx('wrap-video')} ref={ref}>
+                        <Video
+                            dataVideo={data.file_url}
+                            typeVideo={data.meta.file_format}
+                            onClick={handleClick}
+                            classVideo={cx('video')}
+                            ref={videoRef}
+                            inView={view}
+                            iconVideo
+                        />
+                    </div>
                     <IconVideo
                         likeCount={data.likes_count}
                         commentsCount={data.comments_count}

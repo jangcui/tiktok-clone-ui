@@ -32,8 +32,12 @@ body {
     overflow-y: overlay;
 }
 .hidden {
-    overflow: hidden;
+    overflow: hidden !important;
 }
+.hidden1 {
+    overflow: hidden !important;
+}
+
 // scrollbar css
 html *::-webkit-scrollbar {
     border-radius: 0;

@@ -13,6 +13,7 @@ export const getVideoList = async ({ type = 'for-you', page }) => {
         console.log('lỡi');
     }
 };
+
 export const getAVideo = async (id) => {
     try {
         const res = await httpRequest.get(`videos/${id}`);
@@ -44,6 +45,7 @@ export const getSuggested = async ({ page, perPage }) => {
         console.log('lỡi');
     }
 };
+
 export const search = async (q, type = 'less') => {
     try {
         const res = await httpRequest.get('users/search', {
@@ -57,6 +59,7 @@ export const search = async (q, type = 'less') => {
         console.log('lỡi');
     }
 };
+
 export const register = async ({ type = 'email', email, password }) => {
     try {
         const res = await httpRequest.post('auth/register', {
@@ -69,6 +72,7 @@ export const register = async ({ type = 'email', email, password }) => {
         console.log(error);
     }
 };
+
 export const login = async ({ email, password }) => {
     try {
         const res = await httpRequest.post('auth/login', {
@@ -80,6 +84,7 @@ export const login = async ({ email, password }) => {
         console.log(error);
     }
 };
+
 export const getAnUser = async (pathName) => {
     try {
         const res = await httpRequest.get(`users${pathName}`);
@@ -88,6 +93,7 @@ export const getAnUser = async (pathName) => {
         console.log(error);
     }
 };
+
 export const followUser = async (id) => {
     try {
         const res = await httpRequest.post(`users/${id}/follow`);
@@ -96,6 +102,7 @@ export const followUser = async (id) => {
         console.log(error);
     }
 };
+
 export const unFollowUser = async (id) => {
     try {
         const res = await httpRequest.post(`users/${id}/unfollow`);
@@ -117,6 +124,7 @@ export const getFollowList = async ({ page }) => {
         console.log(error);
     }
 };
+
 export const getCommentsList = async (uuid) => {
     try {
         const res = await httpRequest.get(`videos/${uuid}/comments`);

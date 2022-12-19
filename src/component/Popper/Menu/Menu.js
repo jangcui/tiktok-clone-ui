@@ -10,13 +10,13 @@ import styles from './Menu.module.scss';
 
 const cx = className.bind(styles);
 
-const defaultfn = () => {};
+const defaultFn = () => {};
 
 function Menu({
     children,
     items = [],
     hideOnClick = false,
-    onChange = defaultfn,
+    onChange = defaultFn,
     placement,
     offset = [],
     delay = [],

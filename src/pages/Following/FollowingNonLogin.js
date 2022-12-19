@@ -22,7 +22,7 @@ function FollowingNonLogin() {
         if (page > 20) {
             return setPage(RANDOM);
         }
-        Services.getSuggested({ page: page })
+        Services.getSuggested({ page: page, perPage: 10 })
             .then((data) => {
                 setDataUser((preUser) => [...preUser, ...data]);
             })

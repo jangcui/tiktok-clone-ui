@@ -1,31 +1,16 @@
 import PropTypes from 'prop-types';
-import Tippy from '@tippyjs/react/headless';
 import { Link } from 'react-router-dom';
 import Image from '~/component/Image';
 import classNames from 'classnames/bind';
 
 import SubInfoAvatar from '~/component/SubInfoUser';
 import styles from './SuggestAccounts.module.scss';
-import { Wrapper as PopperWrapper } from '../Popper';
 import { CheckIcon } from '../Icons';
 const cx = classNames.bind(styles);
 
 function AccountPreview({ data }) {
-    const renderPreview = (props) => {
-        if (!data.is_followed) {
-            return (
-                <PopperWrapper>
-                    <div tabIndex="1" {...props}>
-                        <SubInfoAvatar data={data} />
-                    </div>
-                </PopperWrapper>
-            );
-        } else {
-            return '';
-        }
-    };
     return (
-        <Tippy interactive delay={[800, 300]} offset={[-20, 0]} placement="bottom" zIndex={999} render={renderPreview}>
+        <SubInfoAvatar delay={[800, 300]} offset={[-20, 0]} data={data}>
             <Link to={`/@${data.nickname}`}>
                 <div className={cx('account-item')}>
                     <Image className={cx('avatar')} src={data.avatar} alt="kk" />
@@ -38,7 +23,7 @@ function AccountPreview({ data }) {
                     </div>
                 </div>
             </Link>
-        </Tippy>
+        </SubInfoAvatar>
     );
 }
 AccountPreview.prototype = {

@@ -27,7 +27,6 @@ function Following() {
             })
             .catch((error) => console.log(error));
     }, []);
-    console.log(data.length);
     return (
         <div className={cx('wrapper')}>
             {!user || data.length === 0 ? (

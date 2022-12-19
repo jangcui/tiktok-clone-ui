@@ -26,10 +26,12 @@ import {
 import Button from '../Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
-import Tippy from '@tippyjs/react';
+import Tippy from '@tippyjs/react/headless';
 import Video from '../Video';
 import UserContext from '../UserContext';
 import { useDebounce } from '~/hook';
+import SubInfoAvatar from '../SubInfoUser/SubInfoAvatar';
+import BtnToggleFollow from '../BtnToggleFollow';
 
 const cx = classNames.bind(styles);
 
@@ -73,24 +75,10 @@ function ModalDetailVideo({ data, isOpen, onClose }) {
                 }
             });
     }, [data, user]);
+
     useEffect(() => {
         isPlaying ? videoRef.current.play() : videoRef.current.pause();
     }, [isPlaying]);
-
-    useEffect(() => {
-        setIsPlaying(true);
-    }, []);
-    const FormatTime = ({ time }) => {
-        let minutes = Math.floor(time / 60);
-        let seconds = Math.floor(time - minutes * 60);
-        let minuteValue, secondValue;
-
-        minuteValue = minutes < 10 ? '0' + minutes : minutes;
-        secondValue = seconds < 10 ? '0' + seconds : seconds;
-
-        let mediaTime = minuteValue + ':' + secondValue;
-        return mediaTime;
-    };
 
     const Popper = ({ children, title }) => {
         return (
@@ -106,28 +94,19 @@ function ModalDetailVideo({ data, isOpen, onClose }) {
     return ReactDom.createPortal(
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
-                <div className={cx('wrap-video')}>
+                <div className={cx('wrap-video')} onClick={() => setIsPlaying(!isPlaying)}>
                     <Image className={cx('img')} src={data.thumb_url} alt="avatar" />
                     <div className={cx('content-video')}>
                         <div className={cx('main-video')}>
-                            <video
-                                className={cx('video')}
-                                src={data.file_url}
+                            <Video
+                                classVideo={cx('video')}
+                                dataVideo={data.file_url}
                                 ref={videoRef}
-                                onClick={() => setIsPlaying(!isPlaying)}
                                 loop
+                                inView={isPlaying}
+                                typeVideo={data.meta.file_format}
+                                onClick={() => console.log(123)}
                             />
-                            <div className={cx('controls')}>
-                                <div className={cx('seek-slider')}>
-                                    <span className={cx('progress')}>
-                                        <span className={cx('process')}></span>
-                                    </span>
-                                </div>
-                                <div className={cx('seek-timer')}>
-                                    <FormatTime time={'12'} /> /
-                                    <FormatTime time={'15'} />
-                                </div>
-                            </div>
                         </div>
                     </div>
                     <div className={cx('volume-control')}>
@@ -166,12 +145,23 @@ function ModalDetailVideo({ data, isOpen, onClose }) {
 
                 <div className={cx('wrap-comment')}>
                     <div className={cx('user')}>
-                        <Image className={cx('avatar')} src={data && data.user.avatar} alt={data.user.nickname} />
-                        <div className={cx('info')}>
+                        <SubInfoAvatar
+                            interactive
+                            delay={[800, 500]}
+                            offset={[6, 10]}
+                            placement="bottom-start"
+                            data={data.user}
+                            style
+                        >
+                            <Image className={cx('avatar')} src={data.user.avatar} alt={data.user.nickname} />
+                        </SubInfoAvatar>
+                        <div className={cx('info')} onClick={() => console.log(data)}>
                             <span>{data.user.first_name + ' ' + data.user.last_name}</span>
                             <p>{data.user.nickname}</p>
                         </div>
-                        <Button outline> follow</Button>
+                        <span>
+                            <BtnToggleFollow dataUser={data.user} />
+                        </span>
                     </div>
 
                     <div className={cx('main-content')}>
@@ -252,7 +242,9 @@ function ModalDetailVideo({ data, isOpen, onClose }) {
                                     </Button>
                                 </>
                             ) : (
-                                <p>đăng nhập đăng bình luận</p>
+                                <span className={cx('btn-login')}>
+                                    <p>Please log in to comment</p>
+                                </span>
                             )}
                         </div>
                     </div>
