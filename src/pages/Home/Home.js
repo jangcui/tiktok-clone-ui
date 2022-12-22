@@ -5,6 +5,7 @@ import styles from './Home.module.scss';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ContainerVideoList from '~/component/ContainerVideoList';
 import Loading from '~/component/Loading';
+import { useLayoutEffect } from 'react';
 
 const cx = classNames.bind(styles);
 
@@ -16,7 +17,7 @@ function Home() {
     const handleNextRender = () => {
         setPage(page + 1);
     };
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (page >= 17 || page === 0) {
             setPage(1);
         }

@@ -111,7 +111,6 @@ function ContainerVideoList({ data }) {
                             classVideo={cx('video')}
                             ref={videoRef}
                             inView={view}
-                            iconVideo
                         />
                     </div>
                     <IconVideo

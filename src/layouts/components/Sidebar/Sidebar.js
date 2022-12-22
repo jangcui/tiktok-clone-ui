@@ -12,13 +12,13 @@ import {
 import Button from '~/component/Button';
 import ModalAuth from '~/component/ModalAuth';
 import SuggestAccounts from '~/component/SuggestAccounts';
-import UserContext from '~/component/UserContext';
 import config from '~/config';
 import * as Services from '~/Services/Services';
 import DiscoverSidebar from './DiscoverSidebar';
 import FooterSidebar from './FooterSidebar';
 import Menu, { MenuItems } from './Menu';
 import styles from './Sidebar.module.scss';
+import UserContext from '~/component/UserContext/UserContext';
 
 const cx = classNames.bind(styles);
 

@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { StoreContext } from '~/store';
+import { ContextUser } from '~/store/Contexts';
 
 function UserContext() {
-    const user = useContext(StoreContext);
+    const user = useContext(ContextUser);
     return user;
 }
 

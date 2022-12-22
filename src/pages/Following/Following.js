@@ -6,9 +6,9 @@ import styles from './Following.module.scss';
 import * as Services from '~/Services/Services';
 
 import ContainerVideoList from '~/component/ContainerVideoList';
-import UserContext from '~/component/UserContext';
 import { useDebounce } from '~/hook';
 import FollowingNonLogin from './FollowingNonLogin';
+import UserContext from '~/component/UserContext/UserContext';
 
 const cx = classNames.bind(styles);
 

@@ -5,7 +5,7 @@ import Button from '../Button';
 import ModalAuth from '../ModalAuth';
 import styles from './BtnToggleFollow.module.scss';
 import * as Services from '~/Services/Services';
-import UserContext from '../UserContext';
+import UserContext from '../UserContext/UserContext';
 const cx = classNames.bind(styles);
 
 function BtnToggleFollow({ dataUser, className }) {

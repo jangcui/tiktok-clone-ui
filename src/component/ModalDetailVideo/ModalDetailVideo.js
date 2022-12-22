@@ -28,10 +28,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMusic } from '@fortawesome/free-solid-svg-icons';
 import Tippy from '@tippyjs/react/headless';
 import Video from '../Video';
-import UserContext from '../UserContext';
 import { useDebounce } from '~/hook';
 import SubInfoAvatar from '../SubInfoUser/SubInfoAvatar';
 import BtnToggleFollow from '../BtnToggleFollow';
+import UserContext from '../UserContext/UserContext';
 
 const cx = classNames.bind(styles);
 

@@ -1,19 +1,22 @@
-import { VolumeIcon, PlayIcon, PauseIcon, FlagIcon, MuteIcon } from '~/component/Icons';
+import PropTypes from 'prop-types';
+
+import { PlayIcon, PauseIcon, FlagIcon } from '~/component/Icons';
 import styles from './Video.module.scss';
 import classNames from 'classnames/bind';
 import { useEffect, useState, useRef, forwardRef, useImperativeHandle } from 'react';
 import SeekBarVideo from './SeekBarVideo';
-// import { useInView } from 'react-intersection-observer';
+import VolumeVideo from './VolumeVideo';
+
+import VolumeContext from '../VolumeContext';
 const cx = classNames.bind(styles);
 
-function Video({ dataVideo, inView, typeVideo, onClick = () => {}, classVideo = '', classIcon = '', ...props }, ref) {
+function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, ...props }, ref) {
+    const volumes = VolumeContext();
+    const { volume } = volumes;
     const [isPlaying, setIsPlaying] = useState(true);
-    const [isMute, setIsMute] = useState(true);
-    const [volume, setVolume] = useState(localStorage.getItem('VOLUME') || 0.5);
     const [currentTimeVideo, setCurrentVideo] = useState(0);
     const [durationVideo, setDurationVideo] = useState(0);
     const [percent, setPerCent] = useState(0);
-    const volumeRef = useRef();
     const videoRef = useRef();
     useImperativeHandle(ref, () => ({
         play() {
@@ -23,9 +26,16 @@ function Video({ dataVideo, inView, typeVideo, onClick = () => {}, classVideo = 
             videoRef.current.pause();
         },
     }));
+
     useEffect(() => {
         setDurationVideo(videoRef.current.duration);
     }, []);
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.volume = volume;
+        }
+    }, [volume]);
+
     useEffect(() => {
         if (isPlaying) {
             if (inView) {
@@ -36,31 +46,12 @@ function Video({ dataVideo, inView, typeVideo, onClick = () => {}, classVideo = 
         } else {
             videoRef.current.pause();
         }
-        // inView && isPlaying === true ? videoRef.current.play() : videoRef.current.pause();
     }, [isPlaying, currentTimeVideo, inView]);
 
     const handlePlay = () => {
         setIsPlaying(!isPlaying);
     };
-    useEffect(() => {
-        isMute ? (videoRef.current.volume = volume) : (videoRef.current.volume = 0);
-    }, [volume, isMute]);
 
-    const handleMute = () => {
-        setIsMute(!isMute);
-        isMute ? setVolume(0) : setVolume(0.55);
-    };
-
-    const handleVolume = (e) => {
-        let value = +e.target.value;
-        setVolume(value);
-        if (value === 0) {
-            setIsMute(false);
-        } else {
-            setIsMute(true);
-            localStorage.setItem('VOLUME', value);
-        }
-    };
     const handleTimePlay = (e) => {
         setCurrentVideo(e.target.currentTime);
         setDurationVideo(e.target.duration);
@@ -75,6 +66,7 @@ function Video({ dataVideo, inView, typeVideo, onClick = () => {}, classVideo = 
         setPerCent(e.target.value);
         setCurrentVideo(percent);
     };
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
@@ -97,37 +89,13 @@ function Video({ dataVideo, inView, typeVideo, onClick = () => {}, classVideo = 
                         <FlagIcon />
                         Báo cáo
                     </p>
-                    {isPlaying ? (
-                        <div onClick={handlePlay}>
-                            <PauseIcon className={cx('pause')} />
-                        </div>
-                    ) : (
-                        <div onClick={handlePlay}>
-                            <PlayIcon className={cx('play')} />
-                        </div>
-                    )}
-                    {isMute ? (
-                        <div onClick={handleMute} className={cx('sound')}>
-                            <VolumeIcon />
-                        </div>
-                    ) : (
-                        <div onClick={handleMute} className={cx('sound', 'mute')}>
-                            <MuteIcon />
-                        </div>
-                    )}
-                    <div className={cx('wrap-volume')}>
-                        <input
-                            className={cx('slider-volume')}
-                            type="range"
-                            min={0}
-                            max={1}
-                            step="0.05"
-                            ref={volumeRef}
-                            value={volume}
-                            onChange={handleVolume}
-                        />
+                    <div onClick={handlePlay}>
+                        {isPlaying ? <PauseIcon className={cx('play')} /> : <PlayIcon className={cx('play')} />}
                     </div>
 
+                    <div className={cx('wrap-volume')}>
+                        <VolumeVideo />
+                    </div>
                     <div className={cx('controls')}>
                         <SeekBarVideo
                             percent={percent}
@@ -141,5 +109,15 @@ function Video({ dataVideo, inView, typeVideo, onClick = () => {}, classVideo = 
         </div>
     );
 }
+forwardRef(Video).propTypes = {
+    dataVideo: PropTypes.string.isRequired,
+    inView: PropTypes.bool,
+    typeVideo: PropTypes.string,
+    onClick: PropTypes.func,
+    classVideo: PropTypes.string,
+    classIcon: PropTypes.string,
+    props: PropTypes.object,
+    ref: PropTypes.object,
+};
 
 export default forwardRef(Video);

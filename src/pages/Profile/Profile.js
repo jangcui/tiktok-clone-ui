@@ -10,8 +10,8 @@ import styles from './Profile.module.scss';
 import { useDebounce } from '~/hook';
 import Loading from '~/component/Loading';
 import BtnToggleFollow from '~/component/BtnToggleFollow';
-import UserContext from '~/component/UserContext';
 import Button from '~/component/Button';
+import UserContext from '~/component/UserContext/UserContext';
 const cx = classNames.bind(styles);
 
 function Profile() {

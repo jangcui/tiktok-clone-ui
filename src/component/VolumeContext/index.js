@@ -1,1 +1,1 @@
-export { defaults } from './VolumeContext';
+export { default } from './VolumeContext';

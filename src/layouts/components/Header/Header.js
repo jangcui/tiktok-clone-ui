@@ -16,11 +16,11 @@ import Button from '~/component/Button';
 import { MessageIcon, UploadIcon } from '~/component/Icons';
 import Image from '~/component/Image';
 import ModalAuth from '~/component/ModalAuth';
-import UserContext from '~/component/UserContext';
 import Search from '../Search';
 import Menu from '~/component/Popper/Menu';
 import config from '~/config';
 import styles from './Header.module.scss';
+import UserContext from '~/component/UserContext/UserContext';
 
 const cx = className.bind(styles);
 
@@ -81,6 +81,7 @@ const userMenu = [
 
 function Header({ small }) {
     const user = UserContext();
+
     const [openModal, setOpenModal] = useState(false);
     const [dataUser, setDataUser] = useState({});
 
