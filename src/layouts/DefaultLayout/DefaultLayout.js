@@ -11,7 +11,7 @@ const cx = classNames.bind(styles);
 function DefaultLayout({ children }) {
     const btnRef = useRef();
     useEffect(() => {
-        window.scrollTo(0, 0);
+        window.scrollTo(0, 20);
     }, []);
     useEffect(() => {
         const onScroll = () => {

@@ -1,5 +1,5 @@
 import classNames from 'classnames/bind';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as Services from '~/Services/Services';
 import styles from './Home.module.scss';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -21,9 +21,9 @@ function Home() {
         if (page >= 17 || page === 0) {
             setPage(1);
         }
-        Services.getVideoList({ page: page })
+        Services.getVideoList({ page: 1 })
             .then((data) => {
-                setDataHome((preUser) => [...preUser, ...data]);
+                setDataHome((preUser) => [...preUser, ...data.filter((user) => !user.user.is_followed)]);
             })
             .catch((error) => console.log(error));
     }, [page]);
@@ -40,9 +40,7 @@ function Home() {
                     </div>
                 }
             >
-                {dataHome.map(
-                    (data, index) => !data.user.is_followed && <ContainerVideoList data={data} key={index} />,
-                )}
+                <ContainerVideoList dataList={dataHome} />
             </InfiniteScroll>
         </div>
     );

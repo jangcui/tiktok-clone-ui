@@ -133,3 +133,45 @@ export const getCommentsList = async (uuid) => {
         console.log('lỡi');
     }
 };
+export const likeAPost = async ({ id }) => {
+    try {
+        const res = await httpRequest.post(`videos/${id}/like`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
+export const unLikeAPost = async ({ id }) => {
+    try {
+        const res = await httpRequest.post(`videos/${id}/unlike`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
+export const likeComment = async (id) => {
+    try {
+        const res = await httpRequest.post(`comments/${id}/like`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
+export const unLikeComment = async (id) => {
+    try {
+        const res = await httpRequest.post(`comments/${id}/unlike`);
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};
+export const postCreateComment = async (idVideo, comment) => {
+    try {
+        const res = await httpRequest.post(`videos/${idVideo}/comments`, {
+            comment,
+        });
+        return res.data;
+    } catch (error) {
+        console.log('lỡi');
+    }
+};

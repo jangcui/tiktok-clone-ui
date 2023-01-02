@@ -6,9 +6,10 @@ import styles from './Following.module.scss';
 import * as Services from '~/Services/Services';
 
 import ContainerVideoList from '~/component/ContainerVideoList';
-import { useDebounce } from '~/hook';
+
 import FollowingNonLogin from './FollowingNonLogin';
-import UserContext from '~/component/UserContext/UserContext';
+import UserContext from '~/component/Contexts/UserContext/UserContext';
+import Loading from '~/component/Loading';
 
 const cx = classNames.bind(styles);
 
@@ -16,16 +17,22 @@ function Following() {
     const user = UserContext();
 
     const [data, setData] = useState([]);
-    const deBounceData = useDebounce(data, 800);
-
+    const [page, setPage] = useState(1);
+    const handleNextRender = () => {
+        setPage(page + 1);
+    };
     useEffect(() => {
-        Services.getVideoList({ type: 'following' })
+        Services.getVideoList({ type: 'following', page: page })
             .then((data) => {
                 if (data) {
                     setData((preUser) => [...preUser, ...data]);
+                    console.log(data);
                 }
             })
             .catch((error) => console.log(error));
+    }, [page]);
+    useEffect(() => {
+        window.history.pushState({}, '', `/following`);
     }, []);
     return (
         <div className={cx('wrapper')}>
@@ -34,15 +41,15 @@ function Following() {
             ) : (
                 <InfiniteScroll
                     dataLength={data.length}
-                    endMessage={
-                        <p className={cx('message')}>
-                            <b>There are no more videos to show.</b>
-                        </p>
+                    hasMore={true}
+                    next={handleNextRender}
+                    loader={
+                        <div className={cx('loading')}>
+                            <Loading />
+                        </div>
                     }
                 >
-                    {deBounceData.map((data, index) => (
-                        <ContainerVideoList data={data} key={index} />
-                    ))}
+                    <ContainerVideoList dataList={data} />
                 </InfiniteScroll>
             )}
         </div>

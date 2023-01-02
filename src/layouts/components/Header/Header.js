@@ -20,7 +20,7 @@ import Search from '../Search';
 import Menu from '~/component/Popper/Menu';
 import config from '~/config';
 import styles from './Header.module.scss';
-import UserContext from '~/component/UserContext/UserContext';
+import UserContext from '~/component/Contexts/UserContext/UserContext';
 
 const cx = className.bind(styles);
 

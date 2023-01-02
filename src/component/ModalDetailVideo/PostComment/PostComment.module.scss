@@ -1,0 +1,27 @@
+.wrap-input {
+    position: relative;
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+    border-radius: 8px;
+    height: 100%;
+    margin-right: 12px;
+
+    input {
+        flex: 1 1;
+        background-color: #1618230f;
+        border-radius: 8px;
+        height: 100%;
+        border: 1px solid #00000000;
+        overflow: hidden;
+        padding: 0px 8px;
+        white-space: pre-line;
+        word-break: break-word;
+    }
+    input:focus {
+        border: 0.5px solid #00000048;
+    }
+}
+.btn-post {
+    color: var(--primary);
+}

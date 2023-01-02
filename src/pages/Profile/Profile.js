@@ -11,7 +11,7 @@ import { useDebounce } from '~/hook';
 import Loading from '~/component/Loading';
 import BtnToggleFollow from '~/component/BtnToggleFollow';
 import Button from '~/component/Button';
-import UserContext from '~/component/UserContext/UserContext';
+import UserContext from '~/component/Contexts/UserContext/UserContext';
 const cx = classNames.bind(styles);
 
 function Profile() {

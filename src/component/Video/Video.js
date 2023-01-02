@@ -7,10 +7,14 @@ import { useEffect, useState, useRef, forwardRef, useImperativeHandle } from 're
 import SeekBarVideo from './SeekBarVideo';
 import VolumeVideo from './VolumeVideo';
 
-import VolumeContext from '../VolumeContext';
+import { useInView } from 'react-intersection-observer';
+import VolumeContext from '../Contexts/VolumeContext';
 const cx = classNames.bind(styles);
 
-function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, ...props }, ref) {
+function Video(
+    { dataVideo, control = true, seekBar = true, typeVideo, id, onClick, classVideo, classIcon, ...props },
+    ref,
+) {
     const volumes = VolumeContext();
     const { volume } = volumes;
     const [isPlaying, setIsPlaying] = useState(true);
@@ -18,6 +22,7 @@ function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, .
     const [durationVideo, setDurationVideo] = useState(0);
     const [percent, setPerCent] = useState(0);
     const videoRef = useRef();
+
     useImperativeHandle(ref, () => ({
         play() {
             videoRef.current.play();
@@ -27,18 +32,20 @@ function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, .
         },
     }));
 
-    useEffect(() => {
-        setDurationVideo(videoRef.current.duration);
-    }, []);
+    const [ViewRef, inView, entry] = useInView({
+        threshold: 0,
+        trackVisibility: true,
+        delay: 200,
+    });
     useEffect(() => {
         if (videoRef.current) {
             videoRef.current.volume = volume;
+            setDurationVideo(videoRef.current.duration);
         }
     }, [volume]);
-
     useEffect(() => {
-        if (isPlaying) {
-            if (inView) {
+        if (inView && entry?.isVisible) {
+            if (isPlaying) {
                 videoRef.current.play();
             } else {
                 videoRef.current.pause();
@@ -46,7 +53,7 @@ function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, .
         } else {
             videoRef.current.pause();
         }
-    }, [isPlaying, currentTimeVideo, inView]);
+    }, [isPlaying, inView, entry?.isVisible]);
 
     const handlePlay = () => {
         setIsPlaying(!isPlaying);
@@ -66,43 +73,52 @@ function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, .
         setPerCent(e.target.value);
         setCurrentVideo(percent);
     };
-
     return (
         <div className={cx('wrapper')}>
             <div className={cx('container')}>
                 <div className={cx('wrap-video')}>
+                    <div className={cx('view-video')} ref={ViewRef}></div>
                     <video
+                        id={id}
                         className={classVideo}
                         tabIndex="2"
                         src={dataVideo}
                         type={typeVideo}
                         ref={videoRef}
                         loop
-                        onTimeUpdate={handleTimePlay}
+                        // onPause={console.log(123)}
                         onClick={onClick}
+                        onTimeUpdate={handleTimePlay}
                         {...props}
                     />
                 </div>
 
                 <div className={cx('wrap-icon')}>
-                    <p className={cx('flag')}>
-                        <FlagIcon />
-                        Báo cáo
-                    </p>
-                    <div onClick={handlePlay}>
-                        {isPlaying ? <PauseIcon className={cx('play')} /> : <PlayIcon className={cx('play')} />}
-                    </div>
+                    {control && (
+                        <>
+                            <p className={cx('flag')}>
+                                <FlagIcon />
+                                Báo cáo
+                            </p>
+                            <div onClick={handlePlay} className={cx('play')}>
+                                {isPlaying ? <PauseIcon /> : <PlayIcon />}
+                            </div>
 
-                    <div className={cx('wrap-volume')}>
-                        <VolumeVideo />
-                    </div>
-                    <div className={cx('controls')}>
-                        <SeekBarVideo
-                            percent={percent}
-                            onSeek={handleSeekVideo}
-                            currentTime={currentTimeVideo}
-                            durationTime={durationVideo}
-                        />
+                            <div className={cx('wrap-volume')}>
+                                <VolumeVideo />
+                            </div>
+                        </>
+                    )}
+
+                    <div className={cx('seek-bar')}>
+                        {seekBar && (
+                            <SeekBarVideo
+                                percent={percent}
+                                onSeek={handleSeekVideo}
+                                currentTime={currentTimeVideo}
+                                durationTime={durationVideo}
+                            />
+                        )}
                     </div>
                 </div>
             </div>
@@ -110,8 +126,9 @@ function Video({ dataVideo, inView, typeVideo, onClick, classVideo, classIcon, .
     );
 }
 forwardRef(Video).propTypes = {
-    dataVideo: PropTypes.string.isRequired,
+    dataVideo: PropTypes.string,
     inView: PropTypes.bool,
+    iconVideo: PropTypes.bool,
     typeVideo: PropTypes.string,
     onClick: PropTypes.func,
     classVideo: PropTypes.string,
@@ -121,3 +138,4 @@ forwardRef(Video).propTypes = {
 };
 
 export default forwardRef(Video);
+// export default Video;

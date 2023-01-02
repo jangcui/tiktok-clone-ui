@@ -18,7 +18,7 @@ import DiscoverSidebar from './DiscoverSidebar';
 import FooterSidebar from './FooterSidebar';
 import Menu, { MenuItems } from './Menu';
 import styles from './Sidebar.module.scss';
-import UserContext from '~/component/UserContext/UserContext';
+import UserContext from '~/component/Contexts/UserContext/UserContext';
 
 const cx = classNames.bind(styles);
 

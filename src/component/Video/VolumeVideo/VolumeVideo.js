@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import classNames from 'classnames/bind';
 import styles from './VolumeVideo.module.scss';
 import { MuteIcon, VolumeIcon } from '~/component/Icons';
-import VolumeContext from '~/component/VolumeContext';
+import VolumeContext from '~/component/Contexts/VolumeContext';
 
 const cx = classNames.bind(styles);
 
